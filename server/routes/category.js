@@ -10,14 +10,14 @@ router.route('/')
     .get(categoryCtrl.list)
 
     /** POST /api/categories - Create new category */
-    .post(validate(paramValidation.createUser), categoryCtrl.create);
+    .post(validate(paramValidation.createCategory), categoryCtrl.create);
 
 router.route('/:categoryId')
 /** GET /api/categories/:categoryId - Get category */
     .get(categoryCtrl.get)
 
     /** PUT /api/categories/:categoryId - Update category */
-    .put(validate(paramValidation.updateUser), categoryCtrl.update)
+    .put(validate(paramValidation.updateCategory), categoryCtrl.update)
 
     /** DELETE /api/categories/:categoryId - Delete category */
     .delete(categoryCtrl.remove);

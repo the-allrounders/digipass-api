@@ -6,7 +6,7 @@ import mongoose from 'mongoose';
  * 
  * @type {*|Schema}
  */
-const ItemSchema = new mongoose.schema({
+const ItemSchema = new mongoose.Schema({
    title: {
        type: 'string',
        required: true
@@ -27,7 +27,7 @@ ItemSchema.statics = {
     /**
      * Get user by id
      * @param {ObjectId} id - The objectId of user.
-     * @returns {Promise<User>}
+     * @returns {promise<User>}
      */
     get(id) {
         return this.findById(id)
@@ -36,7 +36,7 @@ ItemSchema.statics = {
                     return user;
                 }
                 const err = 'No such user exists!';
-                return Promise.reject(err);
+                return promise.reject(err);
             });
     },
 
@@ -44,7 +44,7 @@ ItemSchema.statics = {
      * List users in descending order of 'createdAt' timestamp.
      * @param {number} skip - Number of users to be skipped.
      * @param {number} limit - Limit number of users to be returned.
-     * @returns {Promise<User[]>}
+     * @returns {promise<User[]>}
      */
     list({ skip = 0, limit = 50 } = {}) {
         return this.find()

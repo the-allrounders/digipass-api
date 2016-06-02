@@ -21,10 +21,12 @@ app.use('/api', routes);
 // promisify mongoose
 promise.promisifyAll(mongoose);
 
-mongoose.connect(config.db);
+mongoose.connect(config.mongo);
 
 mongoose.connection.on('error', () => {
-    throw new Error(`unable to connect to database: ${config.db}`);
+    throw new Error(`unable to connect to database: ${config.mongo}`);
 });
 
-app.listen();
+app.listen(config.port);
+
+console.log('Server running');

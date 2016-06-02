@@ -1,10 +1,12 @@
-import mongoose from 'mongoose';
-import express from 'express';
-import config from './config/config';
-import promise from 'bluebird';
-import routes from './server/routes/index';
-import bodyParser from 'body-parser';
-import cors from 'cors';
+require('babel-register');
+
+const mongoose = require('mongoose'),
+    express = require('express'),
+    config = require('./config/config'),
+    promise = require('bluebird'),
+    routes = require('./server/routes/index'),
+    bodyParser = require('body-parser'),
+    cors = require('cors');
 
 const app = express();
 

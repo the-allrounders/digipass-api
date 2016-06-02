@@ -2,6 +2,8 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     oauthserver = require('oauth2-server');
 
+const config = require('utils/config');
+
 var app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -22,4 +24,4 @@ app.get('/', app.oauth.authorise(), function (req, res) {
 
 app.use(app.oauth.errorHandler());
 
-app.listen(process.env.PORT || 80);
+app.listen(config.mongo);

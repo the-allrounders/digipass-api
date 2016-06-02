@@ -19,7 +19,6 @@
   "homepage": "https://github.com/the-allrounders/digipass-api#readme",
   "dependencies": {
     "body-parser": "^1.15.1",
-    "express": "^4.13.4",
-    "oauth2-server": "^2.4.1"
+    "express": "^4.13.4"
   }
 }

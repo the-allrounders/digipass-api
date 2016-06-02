@@ -1,27 +1,17 @@
-var express = require('express'),
+const express = require('express'),
     bodyParser = require('body-parser'),
-    oauthserver = require('oauth2-server');
-
-const config = require('./utils/config');
+    config = require('./utils/config');
 
 var app = express();
 
+// Allow encoded POST-bodies
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// Allow JSON POST-bodies
 app.use(bodyParser.json());
 
-app.oauth = oauthserver({
-    model: {}, // See below for specification
-    grants: ['password'],
-    debug: true
+app.get('/', function (req, res) {
+    res.json({message: "App is running"});
 });
-
-app.all('/oauth/token', app.oauth.grant());
-
-app.get('/', app.oauth.authorise(), function (req, res) {
-    res.send('Secret area');
-});
-
-app.use(app.oauth.errorHandler());
 
 app.listen(config.port);

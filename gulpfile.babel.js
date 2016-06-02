@@ -1,5 +1,4 @@
 import gulp from 'gulp';
-import promises from 'bluebird';
 import gulpLoadPlugins from 'gulp-load-plugins';
 
 const plugins = gulpLoadPlugins();

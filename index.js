@@ -22,4 +22,4 @@ app.get('/', app.oauth.authorise(), function (req, res) {
 
 app.use(app.oauth.errorHandler());
 
-app.listen(80);
+app.listen(process.env.PORT || 80);

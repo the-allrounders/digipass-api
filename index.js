@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
 import express from 'express';
-import config from 'config/config';
+import config from './config/config';
 import promise from 'bluebird';
-import routes from 'server/routes/index';
+import routes from './server/routes/index';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 

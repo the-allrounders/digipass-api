@@ -30,6 +30,8 @@
     "body-parser": "^1.15.1",
     "cors": "^2.7.1",
     "express": "^4.13.4",
+    "express-validation": "^0.6.0",
+    "joi": "^8.4.0",
     "mongoose": "^4.4.19"
   }
 }

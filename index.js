@@ -1,6 +1,10 @@
-const express = require('express'),
-    bodyParser = require('body-parser'),
-    config = require('./utils/config');
+const express       = require('express'),
+    bodyParser      = require('body-parser'),
+    config          = require('./utils/config'),
+    mongoose        = require('mongoose');
+
+const preference = require('models/preferences.js'),
+    categories = require('models/categories.js');
 
 var app = express();
 
@@ -15,3 +19,5 @@ app.get('/', function (req, res) {
 });
 
 app.listen(config.port);
+
+mongoose.connect('mongodb://localhost/test');

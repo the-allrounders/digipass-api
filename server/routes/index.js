@@ -3,7 +3,7 @@ import userRoutes from './category';
 
 const router = express.Router();
 
-// Mout category routes at /categories
+// Mount category routes at /categories
 router.use('/categories', userRoutes);
 
 export default router;

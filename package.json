@@ -4,7 +4,7 @@
   "description": "Digipass-api",
   "main": "index.js",
   "scripts": {
-    "postinstall" : "gulp serve && node dist/index.js"
+    "start" : "gulp serve && node dist/index.js"
   },
   "repository": {
     "type": "git",

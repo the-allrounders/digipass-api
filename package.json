@@ -4,8 +4,7 @@
   "description": "Digipass-api",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "gulp serve"
   },
   "repository": {
     "type": "git",
@@ -17,9 +16,10 @@
     "url": "https://github.com/the-allrounders/digipass-api/issues"
   },
   "homepage": "https://github.com/the-allrounders/digipass-api#readme",
-  "dependencies": {
-    "body-parser": "^1.15.1",
-    "express": "^4.13.4",
-    "mongoose": "^4.4.19"
+  "devDependencies": {
+    "babel-core": "^6.9.1",
+    "babel-preset-es2015": "^6.9.0",
+    "gulp": "^3.9.1"
   }
+
 }

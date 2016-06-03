@@ -1,0 +1,30 @@
+FORMAT: 1A
+HOST: https://digipass-api.herokuapp.com/api
+
+# digipass
+
+Digipass provides a simple API to access all preferences of users that are authorized to your app.
+
+## Categories Collection [/categories]
+
+### List all categories [GET]
+
++ Response 200 (application/json)
+
+        [
+            {
+                "_id":"5750b2292df0d11b00019cf5",
+                "updatedAt":"2016-06-02T22:24:41.893Z",
+                "createdAt":"2016-06-02T22:24:41.893Z",
+                "title":"test",
+                "description":"test",
+                "__v":0
+            },{
+                "_id":"5750b1f22df0d11b00019cf4",
+                "updatedAt":"2016-06-02T22:23:46.354Z",
+                "createdAt":"2016-06-02T22:23:46.354Z",
+                "title":"test",
+                "description":"test",
+                "__v":0
+            }
+        ]

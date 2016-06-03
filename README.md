@@ -2,5 +2,5 @@
 
 # DigiPass API
 
-The underlying brain behind the [DigiPass Android](https://github.com/the-allrounders/digipass-android) app. Documentation will follow.
+The underlying brain behind the [DigiPass Android](https://github.com/the-allrounders/digipass-android) app. Documentation can be found here: http://docs.digipass.apiary.io/
 

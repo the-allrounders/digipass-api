@@ -16,7 +16,7 @@ const ItemSchema = new mongoose.Schema({
    },
    parent: [
        {
-           _id: { 
+           _id: {
                type: String
            }
        }
@@ -33,24 +33,24 @@ ItemSchema.statics = {
 
     /**
      * Get user by id
-     * @param {ObjectId} id - The objectId of user.
-     * @returns {promise<User>}
+     * @param {ObjectId} id - The objectId of category.
+     * @returns {promise<category>}
      */
     get(id) {
         return this.findById(id)
-            .execAsync().then((user) => {
-                if (user) {
-                    return user;
+            .execAsync().then((category) => {
+                if (category) {
+                    return category;
                 }
-                const err = 'No such user exists!';
+                const err = 'No such category exists!';
                 return promise.reject(err);
             });
     },
 
     /**
-     * List users in descending order of 'createdAt' timestamp.
-     * @param {number} skip - Number of users to be skipped.
-     * @param {number} limit - Limit number of users to be returned.
+     * List categories in descending order of 'createdAt' timestamp.
+     * @param {number} skip - Number of categories to be skipped.
+     * @param {number} limit - Limit number of categories to be returned.
      * @returns {promise<User[]>}
      */
     list({ skip = 0, limit = 50 } = {}) {

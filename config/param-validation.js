@@ -5,7 +5,10 @@ export default {
     createCategory: {
         body: {
             title: Joi.string().required(),
-            description: Joi.string()
+            description: Joi.string(),
+            parent: Joi.array().items(Joi.object().keys({
+                _id: Joi.string()
+            }))
         }
     },
 

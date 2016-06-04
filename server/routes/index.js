@@ -1,9 +1,9 @@
 import express from 'express';
-import userRoutes from './category';
+import categoriesRoutes from './category';
 
 const router = express.Router();
 
 // Mount category routes at /categories
-router.use('/categories', userRoutes);
+router.use('/categories', categoriesRoutes);
 
 export default router;

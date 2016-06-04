@@ -27,7 +27,8 @@ function get(req, res) {
 function create(req, res, next) {
     const category = new Category({
         title: req.body.title,
-        description: req.body.description
+        description: req.body.description,
+        parent: req.body.parent
     });
 
     category.saveAsync()

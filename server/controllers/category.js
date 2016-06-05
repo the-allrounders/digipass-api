@@ -46,6 +46,7 @@ function update(req, res, next) {
     const category = req.category;
     category.title = req.body.title;
     category.description = req.body.description;
+    category.parent = req.body.parent;
 
     category.saveAsync()
         .then((savedCategory) => res.json(savedCategory))

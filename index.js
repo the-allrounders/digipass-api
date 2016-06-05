@@ -1,3 +1,7 @@
+"use strict";
+
+console.log('Starting app..');
+
 require('babel-register');
 
 const mongoose = require('mongoose'),
@@ -23,12 +27,15 @@ app.use('/api', routes);
 // promisify mongoose
 promise.promisifyAll(mongoose);
 
+console.log('Connecting with database..');
 mongoose.connect(config.mongo);
 
-mongoose.connection.on('error', () => {
-    throw new Error(`unable to connect to database: ${config.mongo}`);
+mongoose.connection.on('error', (error) => {
+    console.error('Unable to connect with database: ',error);
+    throw new Error(error);
 });
-
-app.listen(config.port);
-
-console.log('Server running');
+mongoose.connection.once('open', () => {
+    console.log('Connected with database');
+    app.listen(config.port);
+    console.log('Server running on port', config.port);
+});

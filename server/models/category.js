@@ -20,7 +20,10 @@ const ItemSchema = new mongoose.Schema({
                type: String
            }
        }
-   ]
+   ],
+   icon: {
+       type: String
+   }
 },
 {
     timestamps: true

@@ -28,7 +28,8 @@ function create(req, res, next) {
     const category = new Category({
         title: req.body.title,
         description: req.body.description,
-        parent: req.body.parent
+        parent: req.body.parent,
+        icon: req.body.icon
     });
 
     category.saveAsync()
@@ -47,6 +48,7 @@ function update(req, res, next) {
     category.title = req.body.title;
     category.description = req.body.description;
     category.parent = req.body.parent;
+    category.icon = req.body.icon;
 
     category.saveAsync()
         .then((savedCategory) => res.json(savedCategory))

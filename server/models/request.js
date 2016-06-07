@@ -14,20 +14,13 @@ const ItemSchema = new mongoose.Schema({
    description: {
        type: String
    },
-   icon: {
-       type: String
-   },
    category: [{
        type: mongoose.Schema.Types.ObjectId,
        ref: 'Category'
    }],
    type: {
-       type: String,
-       required: true
-   },
-   values: [{
        type: String
-   }]
+   }
 },
 {
     timestamps: true

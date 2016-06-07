@@ -31,7 +31,9 @@ function create(req, res, next) {
         title: req.body.title,
         description: req.body.description,
         type: req.body.type,
-        category: req.body.category
+        category: req.body.category,
+        icon: req.body.icon,
+        values: req.body.values
     });
 
     preference.saveAsync()
@@ -51,6 +53,8 @@ function update(req, res, next) {
     preference.description = req.body.description;
     preference.category = req.body.category;
     preference.type = req.body.type;
+    preference.icon = req.body.icon;
+    preference.values = req.body.values;
 
     preference.saveAsync()
         .then((savedPreference) => res.json(savedPreference))
@@ -65,7 +69,7 @@ function update(req, res, next) {
  */
 function list(req, res, next) {
     const { limit = 50, skip = 0 } = req.query;
-    Preference.list({ limit, skip }).then((preferences) =>	{console.log(preferences); res.json(preferences)})
+    Preference.list({ limit, skip }).then((preferences) => res.json(preferences))
         .error((e) => next(e));
 }
 

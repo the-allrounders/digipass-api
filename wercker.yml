@@ -1,7 +1,11 @@
 box: node
-
+services:
+   - id: mongo
 build:
   steps:
+    - script:
+        name: show environment variables
+        code: printenv
     - script:
         name: echo nodejs information
         code: |

@@ -5,6 +5,8 @@ import userRoutes from './user';
 
 const router = express.Router();
 
+router.use('/session', require('./session'));
+
 // Mount category routes at /categories
 router.use('/categories', categoriesRoutes);
 

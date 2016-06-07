@@ -4,28 +4,11 @@ console.log('Starting app..');
 
 require('babel-register');
 
-const mongoose = require('mongoose'),
-    express = require('express'),
+const promise = require('bluebird'),
     config = require('./config/config'),
-    promise = require('bluebird'),
-    routes = require('./server/routes/index'),
-    bodyParser = require('body-parser'),
-    cors = require('cors');
+    mongoose = promise.promisifyAll(require('mongoose'));
 
-const app = express();
-
-// parse body params and attache them to req.body
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
-// enable CORS - Cross Origin Resource Sharing
-app.use(cors());
-
-// mount all routes on /api path
-app.use('/api', routes);
-
-// promisify mongoose
-promise.promisifyAll(mongoose);
+const app = require('./server');
 
 console.log('Connecting with database..');
 mongoose.connect(config.mongo);

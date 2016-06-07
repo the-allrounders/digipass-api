@@ -16,9 +16,7 @@ const ItemSchema = new mongoose.Schema({
    },
    parent: [
        {
-           _id: {
-               type: String
-           }
+           type: String
        }
    ],
    icon: {

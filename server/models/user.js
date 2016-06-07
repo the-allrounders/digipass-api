@@ -7,21 +7,23 @@ import mongoose from 'mongoose';
  * @type {*|Schema}
  */
 const ItemSchema = new mongoose.Schema({
-   organisation: {
-       type: mongoose.Schema.Types.ObjectId,
-       ref: 'Organisation'
-   },
-   userId: {
-       type: mongoose.Schema.types.ObjectId,
-       ref: 'User'
-   }, 
-   preference: {
-       type: mongoose.Schema.types.ObjectId,
-       ref: 'Preference'
-   },
-   status: {
+   userName: {
        type: String,
-       required: true    
+       required: true
+   },
+   email: {
+       type: String,
+       validate: {
+           validator: (v) => {
+               return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v)
+           }
+       },
+       match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address'],
+       required: [true, 'Email is required']
+   },
+   password: {
+       type: String,
+       required: true
    }
 },
 {
@@ -64,4 +66,4 @@ ItemSchema.statics = {
     }
 };
 
-export default mongoose.model('Request', ItemSchema);
+export default mongoose.model('User', ItemSchema);

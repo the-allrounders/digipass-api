@@ -1,5 +1,4 @@
 import Preference from '../models/preference';
-import Category from '../models/category';
 
 /**
  * Load preference and append to req.

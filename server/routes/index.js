@@ -1,19 +1,14 @@
-import express from 'express';
-import categoriesRoutes from './category';
-import preferencesRoutes from './preference';
-import userRoutes from './user';
-
-const router = express.Router();
+const router = require('express').Router();
 
 router.use('/session', require('./session'));
 
 // Mount category routes at /categories
-router.use('/categories', categoriesRoutes);
+router.use('/categories', require('./category'));
 
 // Mount preference routes at /preferences
-router.use('/preferences', preferencesRoutes);
+router.use('/preferences', require('./preference'));
 
 // Mount user routes at /user
-router.use('/users', userRoutes);
+router.use('/users', require('./user'));
 
-export default router;
+module.exports = router;

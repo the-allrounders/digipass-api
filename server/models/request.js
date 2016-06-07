@@ -1,5 +1,5 @@
-import promise from 'bluebird';
-import mongoose from 'mongoose';
+const promise = require('bluebird'),
+    mongoose = require('mongoose');
 
 /**
  * Schema for model

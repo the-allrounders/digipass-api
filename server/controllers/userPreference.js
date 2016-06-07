@@ -1,4 +1,4 @@
-import UserPreference from '../models/userPreference';
+const UserPreference = require('../models/userPreference');
 
 /**
  * Create new userPreference
@@ -51,4 +51,4 @@ function remove(req, res, next) {
         .error((e) => next(e));
 }
 
-export default { create, list, remove };
+module.exports = { create, list, remove };

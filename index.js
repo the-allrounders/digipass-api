@@ -2,8 +2,6 @@
 
 console.log('Starting app..');
 
-require('babel-register');
-
 const promise = require('bluebird'),
     config = require('./config/config'),
     mongoose = promise.promisifyAll(require('mongoose'));

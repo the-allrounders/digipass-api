@@ -1,16 +1,11 @@
-import express from 'express';
-import userCtrl from '../controllers/user';
-import userPreference from './userPreference';
+const userCtrl = require('../controllers/user');
 
-const router = express.Router();
+const router = require('express').Router();
 
 router.route('/')
-/** GET /api/categories - Get list of categories */
-    .get(userCtrl.list)
+    .get(userCtrl.list) /** GET /api/categories - Get list of categories */
+    .post(userCtrl.create); /** POST /api/categories - Create new user */
 
-    /** POST /api/categories - Create new user */
-    .post(userCtrl.create);
+router.use('/:userId', require('./userPreference'));
 
-router.use('/:userId', userPreference);
-
-export default router;
+module.exports = router;

@@ -1,7 +1,6 @@
-import express from 'express';
-import preferenceCtrl from '../controllers/preference';
+const preferenceCtrl = require('../controllers/preference');
 
-const router = express.Router();	// eslint-disable-line new-cap
+const router = require('express').Router();
 
 router.route('/')
 /** GET /api/preferences - Get list of preferences */
@@ -23,4 +22,4 @@ router.route('/:preferenceId')
 /** Load preference when API with preferenceId route parameter is hit */
 router.param('preferenceId', preferenceCtrl.load);
 
-export default router;
+module.exports = router;

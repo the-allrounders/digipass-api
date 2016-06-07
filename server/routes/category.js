@@ -1,26 +1,17 @@
-import express from 'express';
-import categoryCtrl from '../controllers/category';
+const categoryCtrl = require('../controllers/category');
 
-const router = express.Router();	// eslint-disable-line new-cap
+const router = require('express').Router();
 
 router.route('/')
-/** GET /api/categories - Get list of categories */
-    .get(categoryCtrl.list)
-
-    /** POST /api/categories - Create new category */
-    .post(categoryCtrl.create);
+    .get(categoryCtrl.list) /** GET /api/categories - Get list of categories */
+    .post(categoryCtrl.create); /** POST /api/categories - Create new category */
 
 router.route('/:categoryId')
-/** GET /api/categories/:categoryId - Get category */
-    .get(categoryCtrl.get)
-
-    /** PUT /api/categories/:categoryId - Update category */
-    .put(categoryCtrl.update)
-
-    /** DELETE /api/categories/:categoryId - Delete category */
-    .delete(categoryCtrl.remove);
+    .get(categoryCtrl.get) /** GET /api/categories/:categoryId - Get category */
+    .put(categoryCtrl.update) /** PUT /api/categories/:categoryId - Update category */
+    .delete(categoryCtrl.remove); /** DELETE /api/categories/:categoryId - Delete category */
 
 /** Load category when API with categoryId route parameter is hit */
 router.param('categoryId', categoryCtrl.load);
 
-export default router;
+module.exports = router;

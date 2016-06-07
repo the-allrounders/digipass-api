@@ -1,17 +1,12 @@
-import express from 'express';
-import userPreferenceCtrl from '../controllers/userPreference';
+const userPreferenceCtrl = require('../controllers/userPreference');
 
-const router = express.Router({mergeParams: true});
+const router = require('express').Router({mergeParams: true});
 
 router.route('/')
-    /** GET /api/preferences - Get list of preferences */
-    .get(userPreferenceCtrl.list)
-
-    /** POST /api/preferences - Create new preference */
-    .post(userPreferenceCtrl.create);
+    .get(userPreferenceCtrl.list) /** GET /api/preferences - Get list of preferences */
+    .post(userPreferenceCtrl.create); /** POST /api/preferences - Create new preference */
 
 router.route('/:preferenceId')
-    /** DELETE /api/preferences/:preferenceId - Delete preference */
-    .delete(userPreferenceCtrl.remove);
+    .delete(userPreferenceCtrl.remove); /** DELETE /api/preferences/:preferenceId - Delete preference */
 
-export default router;
+module.exports = router;

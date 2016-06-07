@@ -1,4 +1,4 @@
-import Preference from '../models/preference';
+const Preference = require('../models/preference');
 
 /**
  * Load preference and append to req.
@@ -83,4 +83,4 @@ function remove(req, res, next) {
         .error((e) => next(e));
 }
 
-export default { load, get, create, update, list, remove };
+module.exports = { load, get, create, update, list, remove };

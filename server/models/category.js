@@ -1,5 +1,5 @@
-import promise from 'bluebird';
-import mongoose from 'mongoose';
+const promise = require('bluebird');
+const mongoose = require('mongoose');
 
 /**
  * Schema for model
@@ -63,4 +63,4 @@ ItemSchema.statics = {
     }
 };
 
-export default mongoose.model('Category', ItemSchema);
+module.exports = mongoose.model('Category', ItemSchema);

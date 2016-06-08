@@ -1,6 +1,7 @@
 box: node
 services:
    - id: mongo
+
 build:
   steps:
     - script:
@@ -13,3 +14,10 @@ build:
           echo "npm version $(npm -v) running"
     - npm-install
     - npm-test
+
+deploy:
+  steps:
+    - heroku-deploy:
+        key: $HEROKU_KEY
+        user: $HEROKU_USER
+        app-name: $HEROKU_APP_NAME

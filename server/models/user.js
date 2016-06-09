@@ -44,7 +44,7 @@ ItemSchema.statics = {
                 if (item) {
                     return item;
                 }
-                const err = 'No such item exists!';
+                const err = 'No such User exists!';
                 return promise.reject(err);
             });
     },

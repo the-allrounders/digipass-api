@@ -1,4 +1,5 @@
-const Request = require('../models/request');
+const Request = require('../models/request'),
+    mongoose = require('mongoose');
 
 /**
  * Load request and append to req.
@@ -11,25 +12,22 @@ function load(req, res, next, id) {
 }
 
 /**
- * Get request
- * @returns {Request}
- */
-function get(req, res) {
-    return res.json(req.request);
-}
-
-/**
  * Create new request
  * @property {string} req.body.requestname - The requestname of request.
  * @property {string} req.body.mobileNumber - The mobileNumber of request.
  * @returns {Request}
  */
 function create(req, res, next) {
+    const organisationId = mongoose.Types.ObjectId(req.body.organisation);
+    const userId = mongoose.Types.ObjectId(req.params.userId);
+    const permissions = [];
+    req.body.permissions.forEach((v) => permissions.push(mongoose.Types.ObjectId(v)));
+
     const request = new Request({
-        title: req.body.title,
-        description: req.body.description,
-        parent: req.body.parent,
-        icon: req.body.icon
+        permissions: permissions,
+        user: userId,
+        organisation: organisationId,
+        status: req.body.status
     });
 
     request.saveAsync()
@@ -62,8 +60,9 @@ function update(req, res, next) {
  * @returns {Request[]}
  */
 function list(req, res, next) {
-    const { limit = 50, skip = 0 } = req.query;
-    Request.list({ limit, skip }).then((requests) =>	res.json(requests))
+    const userId = mongoose.Types.ObjectId(req.params.userId);
+
+    Request.list(userId).then((requests) =>	res.json(requests))
         .error((e) => next(e));
 }
 
@@ -78,4 +77,4 @@ function remove(req, res, next) {
         .error((e) => next(e));
 }
 
-module.exports = { load, get, create, update, list, remove };
+module.exports = { load, create, update, list, remove };

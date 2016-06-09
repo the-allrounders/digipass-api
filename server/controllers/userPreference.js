@@ -1,5 +1,6 @@
-const UserPreference = require('../models/userPreference');
-const mongoose = require('mongoose');
+const mongoose          = require('mongoose'),
+      UserPreference    = require('../models/userPreference'),
+      Preference        = require('../models/preference');
 
 /**
  * Create new userPreference
@@ -11,14 +12,16 @@ function create(req, res, next) {
     var userPref;
     const id = mongoose.Types.ObjectId(req.body.preference);
     const userId = mongoose.Types.ObjectId(req.params.userId);
+
     UserPreference.getPreferenceById(id, userId).then((p) => {
+        userPref = p;
+        var values = req.body.values;
         if(typeof req.body.values == String) {
-            const values = req.body.values.split(",").map(Number);
+            values = req.body.values.split(",").map(Number);
         }
         if (p.length > 0) {
             userPref = p[0];
             userPref.values = values;
-
             userPref.saveAsync()
                 .then((savedUserPreference) => res.json(savedUserPreference))
                 .error((e) => next(e));
@@ -26,7 +29,7 @@ function create(req, res, next) {
             userPref = new UserPreference({
                 preference: req.body.preference,
                 user: req.params.userId,
-                values: req.body.values
+                values: values
             });
 
             userPref.saveAsync()

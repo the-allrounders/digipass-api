@@ -32,7 +32,7 @@ ItemSchema.statics = {
                 if (category) {
                     return category;
                 }
-                const err = 'No such category exists!';
+                const err = 'No such Organisation exists!';
                 return promise.reject(err);
             });
     },

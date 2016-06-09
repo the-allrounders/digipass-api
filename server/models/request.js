@@ -1,5 +1,7 @@
 const promise = require('bluebird'),
-    mongoose = require('mongoose');
+    mongoose = require('mongoose'),
+    Organisation = require('./organisation'),
+    Permission = require('./permission');
 
 /**
  * Schema for model
@@ -11,17 +13,16 @@ const ItemSchema = new mongoose.Schema({
        type: mongoose.Schema.Types.ObjectId,
        ref: 'Organisation'
    },
-   userId: {
+   user: {
        type: mongoose.Schema.Types.ObjectId,
        ref: 'User'
    }, 
-   preference: [{
+   permissions: [{
        type: mongoose.Schema.Types.ObjectId,
-       ref: 'Preference'
+       ref: 'Permission'
    }],
    status: {
-       type: String,
-       required: true    
+       type: String
    }
 },
 {
@@ -51,16 +52,50 @@ ItemSchema.statics = {
 
     /**
      * List items in descending order of 'createdAt' timestamp.
-     * @param {number} skip - Number of items to be skipped.
-     * @param {number} limit - Limit number of items to be returned.
      * @returns {promise<item[]>}
+     * @param userId
      */
-    list({ skip = 0, limit = 50 } = {}) {
-        return this.find()
-            .sort({ createdAt: -1 })
-            .skip(skip)
-            .limit(limit)
-            .execAsync();
+    list(userId) {
+        const requestArray = [];
+        var requests;
+
+        return this.find({user: userId})
+            .execAsync().then((req) => {
+            requests = req;
+
+            requests.forEach((v) => {
+                var object = {
+                    permissions: []
+                };
+                const organisationId = mongoose.Types.ObjectId('575973a6ff62aa884c18e466');
+                console.log(organisationId);
+                return Organisation.get(organisationId).then((o) => {
+                    object.organisation = {
+                        title: o.title
+                    };
+                    console.log(object);
+
+                    v.permissions.forEach((p) => {
+                        const permissionId = mongoose.Types.ObjectId('5759d1252ad723567a35ef1d');
+                        return Permission.get(permissionId).then((p) => {
+                            const permission = {
+                                preference: mongoose.Types.ObjectId(p.preference),
+                                status: p.status
+                            };
+                            object.permissions.push(permission);
+
+                            console.log(object);
+
+                            requestArray.push(object);
+
+                            console.log(requestArray);
+
+                        })
+                    });
+                });
+            });
+            return requestArray;
+        });
     }
 };
 

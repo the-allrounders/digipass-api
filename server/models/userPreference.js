@@ -17,12 +17,7 @@ const ItemSchema = new mongoose.Schema({
         ref: 'User'
     },
     values: [{
-        title: {
-            type: String
-        },
-        value: {
-            type: String
-        }
+        type: String
     }]
 },
 {
@@ -65,27 +60,43 @@ ItemSchema.statics = {
 
         var pref = [];
         var preferences;
-        var uPreferences;
         return Preference.find().execAsync().then((pref) => {
             preferences = pref;
             return self.find({user: userId}).sort({ createdAt: -1 }).execAsync()
         }).then((userPreferences) => {
             preferences.forEach(function (v) {
-                const el = {};
-                el._id = v.id;
-                el.title = v.title;
-                el.description = v.description;
-                el.category = v.category;
-                el.values = v.values;
-                el.filled = false;
-                el.createdAt = v.createdAt;
-                el.updatedAt = v.updatedAt;
+                var userP;
                 userPreferences.forEach(function (uv) {
                     if(v._id.equals(uv.preference)) {
-                        el.values = uv.values;
-                        el.filled = true;
+                        userP = uv;
                     }
                 });
+
+                const el = {
+                    _id: v._id,
+                    title: v.title,
+                    description: v.description,
+                    category: v.category,
+                    createdAt: v.createdAt,
+                    updatedAt: v.updatedAt
+                };
+
+                const values = [];
+                v.values.forEach((obj) => {
+                    console.log(obj);
+                    const val = {
+                        title: obj.title,
+                        value: obj.value
+                    };
+                    const i = userP.values.indexOf(obj.title);
+                    if (i > -1) {
+                       val.value = userP.values[i].value;
+                    }
+                    values.push(val);
+                });
+
+                el.values = values;
+
                 pref.push(el);
             });
             return pref;

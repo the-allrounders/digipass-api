@@ -7,29 +7,17 @@ const promise = require('bluebird'),
  * @type {*|Schema}
  */
 const ItemSchema = new mongoose.Schema({
-   title: {
-       type: String,
-       required: true
-   },
-   description: {
-       type: String
-   },
-   category: [{
+    preference: {
        type: mongoose.Schema.Types.ObjectId,
-       ref: 'Category'
-   }],
-   type: {
-       type: String,
-       required: true
-   },
-   values: [{
-       title: {
-           type: String
-       },
-       value: {
-           type: String
-       }
-   }]
+       ref: 'Preference'
+    },
+    user: {
+       type: mongoose.Schema.Types.ObjectId,
+       ref: 'user'
+    },
+    status: {
+       type: String
+    }
 },
 {
     timestamps: true
@@ -51,7 +39,7 @@ ItemSchema.statics = {
                 if (item) {
                     return item;
                 }
-                const err = 'No such preference exists!';
+                const err = 'No such Permission exists!';
                 return promise.reject(err);
             });
     },
@@ -71,4 +59,4 @@ ItemSchema.statics = {
     }
 };
 
-module.exports = mongoose.model('Preference', ItemSchema);
+module.exports = mongoose.model('Status', ItemSchema);

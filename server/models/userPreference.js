@@ -58,26 +58,34 @@ ItemSchema.statics = {
      * @returns {promise<User[]>}
      */
     list(userId) {
+        var self = this;
 
-        var preferences = Array;
-        Preference.find((err,pref) => console.log(pref));
-
-        console.log(preferences);
-
-        const userPreferences = this.find({user: userId})
-            .sort({ createdAt: -1 })
-            .execAsync().then((uPref => {return uPref}));
-
-        const pref = Array;
-        preferences.foreach(function (k,v) {
-            userPreferences.foreach(function (uk,uv) {
-                if(uv.preference = v._id) {
-                    v.values = uv.values;
-                }
-            })
-        })
-
-        return preferences;
+        var pref = [];
+        var preferences;
+        var uPreferences;
+        return Preference.find().execAsync().then((pref) => {
+            preferences = pref;
+            return self.find({user: userId}).sort({ createdAt: -1 }).execAsync()
+        }).then((userPreferences) => {
+            preferences.forEach(function (v) {
+                const el = {};
+                el.title = v.title;
+                el.description = v.description;
+                el.category = v.category;
+                el.values = v.values;
+                el.filled = false;
+                el.createdAt = v.createdAt;
+                el.updatedAt = v.updatedAt;
+                userPreferences.forEach(function (uv) {
+                    if(v._id.equals(uv.preference)) {
+                        el.values = uv.values;
+                        el.filled = true;
+                    }
+                });
+                pref.push(el);
+            });
+            return pref;
+        });
     },
 
     getPreferenceById(id, userId) {

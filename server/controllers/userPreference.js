@@ -1,4 +1,5 @@
 const UserPreference = require('../models/userPreference');
+const mongoose = require('mongoose');
 
 /**
  * Create new userPreference
@@ -7,25 +8,28 @@ const UserPreference = require('../models/userPreference');
  * @returns {UserPreference}
  */
 function create(req, res, next) {
-    const preferenceId = req.body.preference;
-    let userPref;
+    var userPref;
+    const id = mongoose.Types.ObjectId(req.body.preference);
+    UserPreference.getPreferenceById(id).then((p) => {
+        if (p.length > 0) {
+            userPref = p[0];
+            userPref.values = req.body.values;
 
-    UserPreference.getPreferenceById(preferenceId).then((userPreference) => {
-        console.log('update: ', userPreference);
-        userPreference.values = req.body.values;
-        userPref = userPreference;
-    }).error((e) => {
-        console.log('new', e);
-        userPref = new UserPreference({
-            preference: req.body.preference,
-            user: res.param.userId,
-            values: req.body.values
-        });
-    });
+            userPref.saveAsync()
+                .then((savedUserPreference) => res.json(savedUserPreference))
+                .error((e) => next(e));
+        } else {
+            userPref = new UserPreference({
+                preference: req.body.preference,
+                user: req.params.userId,
+                values: req.body.values
+            });
 
-    userPref.saveAsync()
-        .then((savedUserPreference) => res.json(savedUserPreference))
-        .error((e) => next(e));
+            userPref.saveAsync()
+                .then((savedUserPreference) => res.json(savedUserPreference))
+                .error((e) => next(e));
+        }
+    }).error((e) => console.log(e));
 }
 
 /**

@@ -61,7 +61,7 @@ ItemSchema.statics = {
     },
 
     getPreferenceById(id) {
-        return this.findOne({preference: id})
+        return this.find({preference: id})
             .execAsync().then((userPreference) => {
                 if(userPreference) {
                     return userPreference;

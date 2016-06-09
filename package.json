@@ -29,5 +29,8 @@
   },
   "devDependencies": {
     "dredd": "^1.0.11"
+  },
+  "engines": {
+    "node": "6.x"
   }
 }

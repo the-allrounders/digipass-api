@@ -12,13 +12,13 @@ const ItemSchema = new mongoose.Schema({
        ref: 'Organisation'
    },
    userId: {
-       type: mongoose.Schema.types.ObjectId,
+       type: mongoose.Schema.Types.ObjectId,
        ref: 'User'
    }, 
-   preference: {
-       type: mongoose.Schema.types.ObjectId,
+   preference: [{
+       type: mongoose.Schema.Types.ObjectId,
        ref: 'Preference'
-   },
+   }],
    status: {
        type: String,
        required: true    
@@ -64,4 +64,4 @@ ItemSchema.statics = {
     }
 };
 
-export default mongoose.model('Request', ItemSchema);
+module.exports = mongoose.model('Request', ItemSchema);

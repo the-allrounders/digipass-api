@@ -16,18 +16,21 @@ const ItemSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
-    values: [
-        {
+    values: [{
+        title: {
+            type: String
+        },
+        value: {
             type: String
         }
-    ]
+    }]
 },
 {
     timestamps: true
 });
 
 
-ItemSchema.index({preference: 1, user: 1}, {unique: true})
+ItemSchema.index({preference: 1, user: 1}, {unique: true});
 
 
 /**
@@ -69,6 +72,7 @@ ItemSchema.statics = {
         }).then((userPreferences) => {
             preferences.forEach(function (v) {
                 const el = {};
+                el._id = v.id;
                 el.title = v.title;
                 el.description = v.description;
                 el.category = v.category;

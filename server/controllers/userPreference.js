@@ -12,9 +12,12 @@ function create(req, res, next) {
     const id = mongoose.Types.ObjectId(req.body.preference);
     const userId = mongoose.Types.ObjectId(req.params.userId);
     UserPreference.getPreferenceById(id, userId).then((p) => {
+        if(typeof req.body.values == String) {
+            const values = req.body.values.split(",").map(Number);
+        }
         if (p.length > 0) {
             userPref = p[0];
-            userPref.values = req.body.values;
+            userPref.values = values;
 
             userPref.saveAsync()
                 .then((savedUserPreference) => res.json(savedUserPreference))

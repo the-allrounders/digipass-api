@@ -22,11 +22,11 @@ const ItemSchema = new mongoose.Schema({
        type: String,
        required: true
    },
-   values: [
-       {
+   values: [{
+       title: {
            type: String
        }
-   ]
+   }]
 },
 {
     timestamps: true

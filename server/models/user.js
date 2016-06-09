@@ -7,24 +7,22 @@ const promise = require('bluebird'),
  * @type {*|Schema}
  */
 const ItemSchema = new mongoose.Schema({
-   userName: {
-       type: String,
-       required: true
-   },
-   email: {
-       type: String,
-       validate: {
-           validator: (v) => {
-               return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v)
-           }
-       },
-       match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address'],
-       required: [true, 'Email is required']
-   },
-   password: {
-       type: String,
-       required: true
-   }
+    email: {
+        type: String,
+        match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address'],
+        required: [true, 'Email is required']
+    },
+    password: {
+        type: String,
+        required: true
+    },
+    tokens: [{
+        bearer: String
+    }],
+    name: {
+        first: String,
+        last: String
+    }
 },
 {
     timestamps: true

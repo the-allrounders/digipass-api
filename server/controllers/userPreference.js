@@ -10,7 +10,8 @@ const mongoose = require('mongoose');
 function create(req, res, next) {
     var userPref;
     const id = mongoose.Types.ObjectId(req.body.preference);
-    UserPreference.getPreferenceById(id).then((p) => {
+    const userId = mongoose.Types.ObjectId(req.params.userId);
+    UserPreference.getPreferenceById(id, userId).then((p) => {
         if (p.length > 0) {
             userPref = p[0];
             userPref.values = req.body.values;
@@ -39,8 +40,8 @@ function create(req, res, next) {
  * @returns {UserPreference[]}
  */
 function list(req, res, next) {
-    const { limit = 50, skip = 0 } = req.query;
-    UserPreference.list({ limit, skip }).then((userPreferences) =>	res.json(userPreferences))
+    const userId = mongoose.Types.ObjectId(req.params.userId);
+    UserPreference.list(userId).then((userPreferences) =>	res.json(userPreferences))
         .error((e) => next(e));
 }
 

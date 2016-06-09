@@ -1,5 +1,6 @@
 const promise = require('bluebird'),
-    mongoose = require('mongoose');
+    mongoose = require('mongoose'),
+    Preference = require('./preference');
 
 /**
  * Schema for model
@@ -25,6 +26,10 @@ const ItemSchema = new mongoose.Schema({
     timestamps: true
 });
 
+
+ItemSchema.index({preference: 1, user: 1}, {unique: true})
+
+
 /**
  * Statics
  */
@@ -37,9 +42,9 @@ ItemSchema.statics = {
      */
     get(id) {
         return this.findById(id)
-            .execAsync().then((category) => {
-                if (category) {
-                    return category;
+            .execAsync().then((preference) => {
+                if (preference.length > 0) {
+                    return preference;
                 }
                 const err = 'No such userPreference exists!';
                 return promise.reject(err);
@@ -52,43 +57,37 @@ ItemSchema.statics = {
      * @param {number} limit - Limit number of categories to be returned.
      * @returns {promise<User[]>}
      */
-    list({ skip = 0, limit = 50 } = {}) {
-        return this.find()
+    list(userId) {
+
+        var preferences = Array;
+        Preference.find((err,pref) => console.log(pref));
+
+        console.log(preferences);
+
+        const userPreferences = this.find({user: userId})
             .sort({ createdAt: -1 })
-            .skip(skip)
-            .limit(limit)
-            .execAsync();
+            .execAsync().then((uPref => {return uPref}));
+
+        const pref = Array;
+        preferences.foreach(function (k,v) {
+            userPreferences.foreach(function (uk,uv) {
+                if(uv.preference = v._id) {
+                    v.values = uv.values;
+                }
+            })
+        })
+
+        return preferences;
     },
 
-    getPreferenceById(id) {
-        return this.find({preference: id})
+    getPreferenceById(id, userId) {
+        return this.find({preference: id, user: userId})
             .execAsync().then((userPreference) => {
                 if(userPreference) {
                     return userPreference;
                 }
                 return promise.reject('error');
             });
-
-
-
-
-
-
-            // {_id: { $eq: id, $exists: true, $ne: null }})
-            // .execAsync().then((userPreference) => {
-            //     if(userPreference) {
-            //         return userPreference;
-            //     }
-            // });
-
-            // .execAsync().then((userPreference) => {
-            //     if(userPreference) {
-            //         console.log('gevonden: ', userPreference);
-            //         return userPreference;
-            //     }
-            //     const err = 'No such userPreference exists';
-            //     return promise.reject(err);
-            // })
     }
 };
 

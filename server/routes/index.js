@@ -8,6 +8,9 @@ router.use('/categories', require('./category'));
 // Mount preference routes at /preferences
 router.use('/preferences', require('./preference'));
 
+// Mount preference routes at /preferences
+router.use('/organisations', require('./organisation'));
+
 // Mount user routes at /user
 router.use('/users', require('./user'));
 

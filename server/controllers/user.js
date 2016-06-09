@@ -29,7 +29,7 @@ function create(req, res, next) {
     const user = new User({
         userName: req.body.userName,
         email: req.body.email,
-        password: req.body.password,
+        password: req.body.password
     });
 
     user.saveAsync()

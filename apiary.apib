@@ -5,9 +5,15 @@ HOST: https://digipass-api.herokuapp.com/api
 
 Digipass provides a simple API to access all preferences of users that are authorized to your app.
 
-## Users [/users]
+# Group Authentication
+
+This is only meant for DigiPass clients, not for DigiPass users or organisations using DigiPass.
+
+## Register [/users]
 
 ### Create new account [POST]
+
+With this endpoint, you can create a new user account with an e-mail adress, password, and a name. It returns a new Bearer token.
 
 + Request (application/json)
 
@@ -25,6 +31,43 @@ Digipass provides a simple API to access all preferences of users that are autho
 
         {
             "Bearer": "R_7XUe6TEYQJlYNeF-njnl50",
+            "User": {
+                "id": "5760262342616610008e62f3"
+            }
+        }
+
+## Log in [/users/login]
+
+### Create new token [POST]
+
+When given the right e-mail adress and password, this returns a new Bearer token.
+
++ Request (application/json)
+
+        {
+            "username": "digipass@example.com",
+            "password": "password"
+        }
+
+
++ Response 200 (application/json; charset=utf-8)
+
+        {
+            "Bearer": "R_7XUe6TEYQJlYNeF-njnl50",
+            "User": {
+                "id": "5760262342616610008e62f3"
+            }
+        }
+
+## Test [/users/test]
+
+### Get token information [GET]
+
+When given a bearer, returns the user ID.
+
++ Response 200 (application/json; charset=utf-8)
+
+        {
             "User": {
                 "id": "5760262342616610008e62f3"
             }

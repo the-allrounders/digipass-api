@@ -5,71 +5,27 @@ HOST: https://digipass-api.herokuapp.com/api
 
 Digipass provides a simple API to access all preferences of users that are authorized to your app.
 
-## Categories Collection [/categories]
+## Users [/users]
 
-### List all categories [GET]
+### Create new account [POST]
+
++ Request (application/json)
+
+        {
+            "username": "digipass@example.com",
+            "password": "password",
+            "name": {
+                "first": "Digi",
+                "last": "Pass"
+            }
+        }
+
 
 + Response 200 (application/json; charset=utf-8)
 
-        [
-            {
-                "_id":"5750b2292df0d11b00019cf5",
-                "updatedAt":"2016-06-02T22:24:41.893Z",
-                "createdAt":"2016-06-02T22:24:41.893Z",
-                "title":"test",
-                "description":"test",
-                "parent": [
-                    {
-                        "_id":"5750b1f22df0d11b00019cf4"
-                    }
-                ],
-                "__v":0
-            },{
-                "_id":"5750b1f22df0d11b00019cf4",
-                "updatedAt":"2016-06-02T22:23:46.354Z",
-                "createdAt":"2016-06-02T22:23:46.354Z",
-                "title":"test",
-                "description":"test",
-                "parent": [
-                    {
-                        "_id":"5750b1f22df0d11b00019cf4"
-                    }
-                ],
-                "__v":0
+        {
+            "Bearer": "R_7XUe6TEYQJlYNeF-njnl50",
+            "User": {
+                "id": "5760262342616610008e62f3"
             }
-        ]
-
-
-## Pending requests [/requests/{userId}]
-
-### list all pending requests [GET]
-
-+ response 200 (application/json)
-
-        [
-           {
-                "_id": "1234",
-                "organisation": {
-                    "_id"
-                    "foto"
-                    "title"
-                    "status"
-                },
-                "permissions": [
-                    {
-                        Preference
-                        category
-                        status
-                    }
-                ]
-           }
-        ]
-
-### request [PUT]
-
-{
-     requestId's
-     status
-}
-
-+ response 201 (application/json)
+        }Add

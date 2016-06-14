@@ -14,6 +14,7 @@ const Users = require('./models/user');
 exports.local = new LocalStrategy((username, password, next) =>
     Users.findOne({email: username, password: password})
         .then(user => {
+            if(!user) return next(null, false);
             user.tokens.push(uid.sync(18));
             user.save();
             next(null, user);

@@ -8,7 +8,7 @@ const promise = require('bluebird'),
 
 const app = require('./server');
 
-console.log('Connecting with database..');
+console.log('Connecting with database..', config.mongo);
 mongoose.connect(config.mongo);
 
 mongoose.connection.on('error', (error) => {

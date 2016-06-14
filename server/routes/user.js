@@ -8,9 +8,13 @@ const User = require('../models/user');
  * Is used to test if a bearer is valid.
  * Returns `Authorized` or `Unauthorized`.
  */
-router.route('/test').post(passport.authenticate('bearer', {session: false}), (req, res, next) => {
-    res.send('Authorized');
-});
+router.route('/test').post(passport.authenticate('bearer', {session: false}), (req, res, next) =>
+    res.json({
+        User: {
+            id: req.user.id
+        }
+    })
+);
 
 /**
  * Is used to create a new user.
@@ -36,7 +40,10 @@ router.route('/').post((req, res, next) => {
  */
 router.route(['/', '/login']).post(passport.authenticate('local', { session: false }), (req, res, next) =>
     res.json({
-        Bearer: req.user.tokens.slice(-1)[0]
+        Bearer: req.user.tokens.slice(-1)[0],
+        User: {
+            id: req.user.id
+        }
     })
 );
 

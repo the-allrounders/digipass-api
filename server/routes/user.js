@@ -24,8 +24,8 @@ router.route('/').post((req, res, next) => {
         email: req.body.username,
         password: req.body.password,
         name: {
-            first: req.body.firstName,
-            last: req.body.lastName
+            first: req.body.name.first,
+            last: req.body.name.last
         }
     });
 

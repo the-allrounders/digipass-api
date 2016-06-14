@@ -11,22 +11,10 @@ passport.use(new LocalStrategy((username, password, callback) => {
     });
 }));
 
-passport.serializeUser((user, cb) => {
-    cb(null, user._id);
-});
-
-passport.deserializeUser((id, cb) => {
-    require('./../models/user').findOne({_id: id}).then(() => {
-        if (err) { return cb(err); }
-        cb(null, user);
-    });
-});
-
 router.use(passport.initialize());
-router.use(passport.session());
 
 
-router.route('/login').post(passport.authenticate('local'), (req, res, next) => {
+router.route('/login').post(passport.authenticate('local', { session: false }), (req, res, next) => {
     // TODO: Create token and return token
     res.send('Authorized');
 });

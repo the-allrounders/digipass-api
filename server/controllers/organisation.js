@@ -27,8 +27,6 @@ function get(req, res) {
 function create(req, res, next) {
     const organisation = new Organisation({
         title: req.body.title,
-        description: req.body.description,
-        parent: req.body.parent,
         icon: req.body.icon
     });
 
@@ -46,8 +44,6 @@ function create(req, res, next) {
 function update(req, res, next) {
     const organisation = req.organisation;
     organisation.title = req.body.title;
-    organisation.description = req.body.description;
-    organisation.parent = req.body.parent;
     organisation.icon = req.body.icon;
 
     organisation.saveAsync()

@@ -9,8 +9,9 @@ const promise = require('bluebird'),
 const ItemSchema = new mongoose.Schema({
     email: {
         type: String,
-        match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address'],
-        required: [true, 'Email is required']
+        match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'The email adress is invalid.'],
+        required: true,
+        unique: true
     },
     password: {
         type: String,
@@ -18,8 +19,14 @@ const ItemSchema = new mongoose.Schema({
     },
     tokens: [String],
     name: {
-        first: String,
-        last: String
+        first: {
+            type: String,
+            required: true
+        },
+        last: {
+            type: String,
+            required: true
+        }
     }
 },
 {
@@ -62,4 +69,4 @@ ItemSchema.statics = {
     }
 };
 
-module.exports = mongoose.model('User', ItemSchema);
+exports = module.exports = mongoose.model('User', ItemSchema);

@@ -16,9 +16,7 @@ const ItemSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    tokens: [{
-        bearer: String
-    }],
+    tokens: [String],
     name: {
         first: String,
         last: String

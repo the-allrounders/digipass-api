@@ -29,6 +29,9 @@ exports.local = new LocalStrategy((username, password, next) =>
  */
 exports.bearer = new BearerStrategy((token, next) =>
     Users.findOne({tokens: token})
-        .then(user => next(null, user))
+        .then(user => {
+            if(!user) return next(null, false);
+            next(null, user)
+        })
         .catch(next)
 );

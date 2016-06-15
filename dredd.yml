@@ -1,9 +1,9 @@
 dry-run: null
-hookfiles: null
+hookfiles: "dredd.hooks.js"
 language: nodejs
 sandbox: false
 server: node index.js
-server-wait: 3
+server-wait: 5
 init: false
 custom: {}
 names: false

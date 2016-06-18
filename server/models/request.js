@@ -1,7 +1,8 @@
 const promise = require('bluebird'),
     mongoose = require('mongoose'),
     Organisation = require('./organisation'),
-    Permission = require('./permission');
+    Permission = require('./permission'),
+    Preference = require('./preference');
 
 /**
  * Schema for model
@@ -57,44 +58,74 @@ ItemSchema.statics = {
      */
     list(userId) {
         const requestArray = [];
-        var requests;
+        var requestModel = this;
 
-        return this.find({user: userId})
-            .execAsync().then((req) => {
-            requests = req;
+        function getRequests(requestModel, userId) {
+            return requestModel.find({user: userId})
+                .execAsync().then((req) => {
+                return req;
+            })
+        }
 
-            requests.forEach((v) => {
-                var object = {
-                    permissions: []
-                };
-                const organisationId = mongoose.Types.ObjectId('575973a6ff62aa884c18e466');
-                console.log(organisationId);
-                return Organisation.get(organisationId).then((o) => {
-                    object.organisation = {
-                        title: o.title
-                    };
-                    console.log(object);
-
-                    v.permissions.forEach((p) => {
-                        const permissionId = mongoose.Types.ObjectId('5759d1252ad723567a35ef1d');
-                        return Permission.get(permissionId).then((p) => {
-                            const permission = {
-                                preference: mongoose.Types.ObjectId(p.preference),
-                                status: p.status
-                            };
-                            object.permissions.push(permission);
-
-                            console.log(object);
-
-                            requestArray.push(object);
-
-                            console.log(requestArray);
-
-                        })
+        function getPermissions(request) {
+            return request.permissions.map(p => {
+                const permissionId = mongoose.Types.ObjectId(p.id);
+                return Permission.get(permissionId).then((p) => {
+                    const preferenceId = mongoose.Types.ObjectId(p.preference);
+                    return pref = getPreference(preferenceId).then(pref => {
+                        return {
+                            preference: pref,
+                            status: p.status
+                        }
                     });
-                });
+                })
             });
-            return requestArray;
+        }
+
+        function getPreference(preferenceId) {
+            return Preference.get(preferenceId)
+                .then(p => {
+                    return {
+                        _id: p.id,
+                        title: p.title,
+                        description: p.description,
+                        category: p.category,
+                        type: p.type,
+                        values: p.values,
+                        icon: p.icon
+                    };
+                })
+        }
+
+        function getOrganisation(organisationId) {
+            return Organisation.get(organisationId)
+                .then((o) => {
+                    return {
+                        _id: o.id,
+                        title: o.title,
+                        icon: o.icon
+                    };
+                });
+        }
+
+        userId = mongoose.Types.ObjectId(userId);
+
+        return getRequests(requestModel, userId).then(data => {
+            return promise.all(data.map((req) => {
+                const organisationId = mongoose.Types.ObjectId(req.organisation);
+                const organisation = getOrganisation(organisationId);
+                const permissions = getPermissions(req);
+                return organisation
+                    .then(dataOrganisation => {
+                    return promise.all(permissions)
+                        .then(dataPermissions => {
+                            return {
+                                permissions: dataPermissions,
+                                organisation: dataOrganisation
+                            }
+                        })
+                });
+            }));
         });
     }
 };

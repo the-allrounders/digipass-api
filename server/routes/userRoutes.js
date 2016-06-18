@@ -17,6 +17,7 @@ router.route('/requests')
 
 router.route('/permissions')
     .get(permissionCtrl.list)
-    .post(permissionCtrl.create);
+    .post(permissionCtrl.create)
+    .put(permissionCtrl.update);
 
 module.exports = router;

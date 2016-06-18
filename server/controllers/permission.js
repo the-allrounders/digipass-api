@@ -1,5 +1,5 @@
 const Permission = require('../models/permission'),
-    mongoose = require('mongoose')
+    mongoose = require('mongoose');
 
 /**
  * Load permission and append to req.
@@ -44,15 +44,19 @@ function create(req, res, next) {
  * @returns {Permission}
  */
 function update(req, res, next) {
-    const permission = req.permission;
-    permission.title = req.body.title;
-    permission.description = req.body.description;
-    permission.parent = req.body.parent;
-    permission.icon = req.body.icon;
+    const permissionIds = req.body.permissions;
+    const status = req.body.status;
 
-    permission.saveAsync()
-        .then((savedPermission) => res.json(savedPermission))
-        .error((e) => next(e));
+    permissionIds.map(p => {
+        const id = mongoose.Types.ObjectId(p);
+        Permission.get(id)
+            .then(permission => {
+                permission.status = status;
+                permission.saveAsync()
+                    .then((savedPermission) => res.json(savedPermission))
+                    .error((e) => next(e));
+            });
+    });
 }
 
 /**

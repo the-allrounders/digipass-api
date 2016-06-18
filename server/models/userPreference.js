@@ -17,7 +17,12 @@ const ItemSchema = new mongoose.Schema({
         ref: 'User'
     },
     values: [{
-        type: String
+        title: {
+            type: String
+        },
+        value: {
+            type: String
+        }
     }]
 },
 {
@@ -78,7 +83,6 @@ ItemSchema.statics = {
                 return getUserPreferences(userId).then(dataUserPreferences => {
                     if(dataUserPreferences.length > 0) {
                         return promise.all(dataUserPreferences.map(userPreference => {
-                            console.log('test');
                             const el = {
                                 _id: preference._id,
                                 title: preference.title,

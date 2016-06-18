@@ -20,11 +20,8 @@ function load(req, res, next, id) {
 function create(req, res, next) {
     const organisationId = mongoose.Types.ObjectId(req.body.organisation);
     const userId = mongoose.Types.ObjectId(req.params.userId);
-    const permissions = [];
-    req.body.permissions.forEach((v) => permissions.push(mongoose.Types.ObjectId(v)));
 
     const request = new Request({
-        permissions: permissions,
         user: userId,
         organisation: organisationId,
         status: req.body.status

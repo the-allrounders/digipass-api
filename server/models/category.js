@@ -44,7 +44,7 @@ ItemSchema.statics = {
                     return category;
                 }
                 const err = 'No such category exists!';
-                return promise.reject(err);
+                return false;
             });
     },
 

@@ -1,4 +1,5 @@
 const Permission = require('../models/permission'),
+    RequestCategory = require('../models/requestCategory'),
     mongoose = require('mongoose');
 
 /**
@@ -28,13 +29,39 @@ function get(req, res) {
 function create(req, res, next) {
     const permission = new Permission({
         preference: mongoose.Types.ObjectId(req.body.preference),
-        user: mongoose.Types.ObjectId(req.body.user),
+        request: mongoose.Types.ObjectId(req.body.request),
+        user: mongoose.Types.ObjectId(req.params.userId),
         status: req.body.status
     });
 
-    permission.saveAsync()
-        .then((savedPermission) => res.json(savedPermission))
-        .error((e) => next(e));
+    const categoryId = mongoose.Types.ObjectId(req.body.parent);
+    const requestId = mongoose.Types.ObjectId(req.body.request);
+    const promise = new Promise(
+        (resolve, reject) => {
+            RequestCategory.getByRequestId(requestId, categoryId)
+                .then(requestCategory => {
+                    if (requestCategory.length > 0) {
+                        permission.parent = requestCategory[0].id;
+                        resolve();
+                    } else {
+                        new RequestCategory({
+                            request: requestId,
+                            category: categoryId
+                        }).saveAsync()
+                            .then(savedRequestCategory => {
+                                permission.parent = savedRequestCategory.id;
+                                resolve();
+                            });
+                    }
+                })
+        }
+    );
+
+    promise.then(() => {
+        permission.saveAsync()
+            .then((savedPermission) => res.json(savedPermission))
+            .error((e) => next(e));
+    });
 }
 
 /**

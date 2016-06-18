@@ -13,10 +13,18 @@ const ItemSchema = new mongoose.Schema({
     },
     user: {
        type: mongoose.Schema.Types.ObjectId,
-       ref: 'user'
+       ref: 'User'
+    },
+    request: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Request'
     },
     status: {
        type: String
+    },
+    parent: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'RequestCategory'
     }
 },
 {
@@ -56,6 +64,17 @@ ItemSchema.statics = {
             .skip(skip)
             .limit(limit)
             .execAsync();
+    },
+
+    getByRequestId(id) {
+        return this.find({request: id})
+            .execAsync().then((permissions => {
+                if (permissions) {
+                    return permissions;
+                }
+                const err = 'No permission by Request Id.';
+                return promise.reject(err);
+            }))
     }
 };
 

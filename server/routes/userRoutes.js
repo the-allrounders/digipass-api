@@ -1,6 +1,7 @@
 const userPreferenceCtrl = require('../controllers/userPreference'),
     requestCtrl = require('../controllers/request'),
-    permissionCtrl = require('../controllers/permission');
+    permissionCtrl = require('../controllers/permission'),
+    requestCategoryCtrl = require('../controllers/requestCategory');
 
 const router = require('express').Router({mergeParams: true});
 
@@ -19,5 +20,9 @@ router.route('/permissions')
     .get(permissionCtrl.list)
     .post(permissionCtrl.create)
     .put(permissionCtrl.update);
+
+router.route('/requestCategories')
+    .post(requestCategoryCtrl.create)
+    .get(requestCategoryCtrl.list);
 
 module.exports = router;

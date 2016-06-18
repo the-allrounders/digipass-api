@@ -2,7 +2,9 @@ const promise = require('bluebird'),
     mongoose = require('mongoose'),
     Organisation = require('./organisation'),
     Permission = require('./permission'),
-    Preference = require('./preference');
+    Preference = require('./preference'),
+    Category = require('./category'),
+    RequestCategory = require('./requestCategory');
 
 /**
  * Schema for model
@@ -17,11 +19,7 @@ const ItemSchema = new mongoose.Schema({
    user: {
        type: mongoose.Schema.Types.ObjectId,
        ref: 'User'
-   }, 
-   permissions: [{
-       type: mongoose.Schema.Types.ObjectId,
-       ref: 'Permission'
-   }],
+   },
    status: {
        type: String
    }
@@ -57,7 +55,6 @@ ItemSchema.statics = {
      * @param userId
      */
     list(userId) {
-        const requestArray = [];
         var requestModel = this;
 
         function getRequests(requestModel, userId) {
@@ -68,17 +65,17 @@ ItemSchema.statics = {
         }
 
         function getPermissions(request) {
-            return request.permissions.map(p => {
-                const permissionId = mongoose.Types.ObjectId(p.id);
-                return Permission.get(permissionId).then((p) => {
-                    const preferenceId = mongoose.Types.ObjectId(p.preference);
-                    return pref = getPreference(preferenceId).then(pref => {
-                        return {
-                            preference: pref,
-                            status: p.status
-                        }
-                    });
-                })
+            const requestId = mongoose.Types.ObjectId(request.id);
+            return Permission.getByRequestId(requestId).map(p => {
+                const preferenceId = mongoose.Types.ObjectId(p.preference);
+                return getPreference(preferenceId).then(pref => {
+                    return {
+                        _id: p.id,
+                        preference: pref,
+                        status: p.status,
+                        parent: p.parent
+                    }
+                });
             });
         }
 
@@ -108,21 +105,85 @@ ItemSchema.statics = {
                 });
         }
 
+        function getCategories(request) {
+            const requestId = mongoose.Types.ObjectId(request.id);
+            return RequestCategory.getByRequestId(requestId)
+                .then(requestCategory => {
+                    return requestCategory.map(req => {
+                        return Category.get(req.category)
+                            .then(category => {
+                                if(category) {
+                                    const cat = {
+                                        title: category.title,
+                                        id: category.id,
+                                        icon: category.icon
+                                    };
+                                    return {
+                                        _id: req.id,
+                                        category: cat,
+                                        parent: req.parent,
+                                        request: req.request
+                                    };
+                                } else {
+                                    return {
+                                        remove: true
+                                    }
+                                }
+                            });
+                    }).filter((category) => {
+                        return !category.remove;
+                    });
+                });
+        }
+
         userId = mongoose.Types.ObjectId(userId);
 
-        return getRequests(requestModel, userId).then(data => {
-            return promise.all(data.map((req) => {
+        return getRequests(requestModel, userId).then(request => {
+            return promise.all(request.map((req) => {
                 const organisationId = mongoose.Types.ObjectId(req.organisation);
                 const organisation = getOrganisation(organisationId);
                 const permissions = getPermissions(req);
+                const categories = getCategories(req);
                 return organisation
                     .then(dataOrganisation => {
                     return promise.all(permissions)
                         .then(dataPermissions => {
-                            return {
-                                permissions: dataPermissions,
-                                organisation: dataOrganisation
-                            }
+                            return promise.all(categories)
+                                .then(dataCategories => {
+                                    dataPermissions = dataPermissions.concat(dataCategories);
+                                    dataPermissions = dataPermissions.map(p => {
+                                        const children = [];
+
+                                        let tempParentArray = [0];
+                                        let i = 0;
+
+                                        while(getChildren() && i < 15) {
+                                            i++;
+                                        }
+
+                                        function getChildren() {
+                                            const tempTempParentArray = [];
+
+                                            dataPermissions.forEach(permission => {
+                                                if(tempParentArray.indexOf(permission.parent) > -1 || (tempParentArray[0] == 0 && !permission.parent)) {
+                                                    children.push(permission._id);
+                                                    tempTempParentArray.push(permission._id);
+                                                }
+                                            });
+
+                                            tempParentArray = tempTempParentArray;
+                                            return tempTempParentArray.length;
+                                        }
+
+                                        p.children = children;
+                                        return p;
+                                    });
+                                    return {
+                                        id: req.id,
+                                        permissions: dataPermissions,
+                                        organisation: dataOrganisation
+                                    }
+                                })
                         })
                 });
             }));

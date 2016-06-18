@@ -58,48 +58,64 @@ ItemSchema.statics = {
     list(userId) {
         var self = this;
 
-        var pref = [];
-        var preferences;
-        return Preference.find().execAsync().then((pref) => {
-            preferences = pref;
+        function getPreferences() {
+            return Preference.find().execAsync()
+                .then(pref => {
+                    return pref;
+                })
+        }
+        
+        function getUserPreferences(userId) {
             return self.find({user: userId}).sort({ createdAt: -1 }).execAsync()
-        }).then((userPreferences) => {
-            preferences.forEach(function (v) {
-                var userP;
-                userPreferences.forEach(function (uv) {
-                    if(v._id.equals(uv.preference)) {
-                        userP = uv;
-                    }
-                });
+                .then(userPref => {
+                    return userPref;
+                })
+        }
+        
+        return getPreferences().then(dataPreferences => {
+            return promise.all(dataPreferences.map(preference => {
+                return getUserPreferences().then(dataUserPreferences => {
+                    return promise.all(dataUserPreferences.map(userPreference => {
+                        const el = {
+                            _id: preference._id,
+                            title: preference.title,
+                            description: preference.description,
+                            category: preference.category,
+                            createdAt: preference.createdAt,
+                            updatedAt: preference.updatedAt
+                        };
 
-                const el = {
-                    _id: v._id,
-                    title: v.title,
-                    description: v.description,
-                    category: v.category,
-                    createdAt: v.createdAt,
-                    updatedAt: v.updatedAt
-                };
+                        const values = [];
+                        if (preference._id.equals(userPreference.preference)) {
+                            if (preference.type === 'checkbox') {
+                                preference.values.forEach(val => {
+                                    const value = {
+                                        title: val.title,
+                                        value: false
+                                    };
+                                    userPreference.values.forEach(uVal => {
+                                        if(uVal.title == val.title) {
+                                            value.value = true;
+                                        }
+                                    });
+                                    values.push(value);
+                                })
+                            }
+                        } else {
+                            preference.values.forEach(val => {
+                                const value = {
+                                    title: val.title,
+                                    value: false
+                                };
+                                values.push(value);
+                            });
+                        }
+                        el.value = values;
 
-                const values = [];
-                v.values.forEach((obj) => {
-                    console.log(obj);
-                    const val = {
-                        title: obj.title,
-                        value: obj.value
-                    };
-                    const i = userP.values.indexOf(obj.title);
-                    if (i > -1) {
-                       val.value = userP.values[i].value;
-                    }
-                    values.push(val);
-                });
-
-                el.values = values;
-
-                pref.push(el);
-            });
-            return pref;
+                        return el;
+                    })).error(e => console.log(e));
+                })
+            }))
         });
     },
 

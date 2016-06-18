@@ -68,14 +68,59 @@ ItemSchema.statics = {
         function getUserPreferences(userId) {
             return self.find({user: userId}).sort({ createdAt: -1 }).execAsync()
                 .then(userPref => {
+                    console.log(userPref);
                     return userPref;
                 })
         }
         
         return getPreferences().then(dataPreferences => {
             return promise.all(dataPreferences.map(preference => {
-                return getUserPreferences().then(dataUserPreferences => {
-                    return promise.all(dataUserPreferences.map(userPreference => {
+                return getUserPreferences(userId).then(dataUserPreferences => {
+                    if(dataUserPreferences.length > 0) {
+                        return promise.all(dataUserPreferences.map(userPreference => {
+                            console.log('test');
+                            const el = {
+                                _id: preference._id,
+                                title: preference.title,
+                                description: preference.description,
+                                category: preference.category,
+                                createdAt: preference.createdAt,
+                                updatedAt: preference.updatedAt
+                            };
+
+                            const values = [];
+                            if (preference._id.equals(userPreference.preference)) {
+                                if (preference.type === 'checkbox') {
+                                    preference.values.forEach(val => {
+                                        const value = {
+                                            title: val.title,
+                                            value: false
+                                        };
+                                        userPreference.values.forEach(uVal => {
+                                            if(uVal.title == val.title) {
+                                                value.value = true;
+                                            }
+                                        });
+                                        values.push(value);
+                                    })
+                                }
+                            } else {
+                                preference.values.forEach(val => {
+                                    const value = {
+                                        title: val.title,
+                                        value: false
+                                    };
+                                    values.push(value);
+                                });
+                            }
+                            el.value = values;
+
+                            return el;
+                        })).error(e => {
+                            console.log(e);
+                            return e;
+                        });
+                    } else {
                         const el = {
                             _id: preference._id,
                             title: preference.title,
@@ -86,34 +131,19 @@ ItemSchema.statics = {
                         };
 
                         const values = [];
-                        if (preference._id.equals(userPreference.preference)) {
-                            if (preference.type === 'checkbox') {
-                                preference.values.forEach(val => {
-                                    const value = {
-                                        title: val.title,
-                                        value: false
-                                    };
-                                    userPreference.values.forEach(uVal => {
-                                        if(uVal.title == val.title) {
-                                            value.value = true;
-                                        }
-                                    });
-                                    values.push(value);
-                                })
-                            }
-                        } else {
-                            preference.values.forEach(val => {
-                                const value = {
-                                    title: val.title,
-                                    value: false
-                                };
-                                values.push(value);
-                            });
-                        }
-                        el.value = values;
+                        preference.values.forEach(val => {
+                            const value = {
+                                title: val.title,
+                                value: false
+                            };
+                            values.push(value);
+                        });
+                        el.values = values;
 
                         return el;
-                    })).error(e => console.log(e));
+                    }
+                }).error(e => {
+                    console.log(e);
                 })
             }))
         });

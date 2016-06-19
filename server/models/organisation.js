@@ -6,18 +6,26 @@ const promise = require('bluebird'),
  * 
  * @type {*|Schema}
  */
-const ItemSchema = new mongoose.Schema({
-   title: {
-       type: String,
-       required: true
-   },
-   icon: {
-       type: String
-   }
-},
-{
-    timestamps: true
-});
+const ItemSchema = new mongoose.Schema(
+    {
+        title: {
+            type: String,
+            required: true
+        },
+        icon: String,
+        devices: [{
+            bluetooth: String,
+            preferences: [{
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Preference'
+            }]
+        }],
+        token: String
+    },
+    {
+        timestamps: true
+    }
+);
 
 /**
  * Statics

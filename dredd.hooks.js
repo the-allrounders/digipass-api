@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var hooks = require('hooks');
 var bearer;
@@ -20,6 +20,6 @@ hooks.after('Authentication > Log in > Create new token', function(transaction){
 
 hooks.beforeEach(function(transaction){
     if(bearer){
-        transaction.request.headers['Authorization'] = "Bearer " + bearer;
+        transaction.request.headers['Authorization'] = 'Bearer ' + bearer;
     }
 });

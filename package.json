@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node index.js",
     "watch": "nodemon index.js",
-    "test": "dredd"
+    "test": "dredd",
+    "lint": "eslint . --fix"
   },
   "repository": {
     "type": "git",
@@ -35,6 +36,7 @@
     "nodemon": "^1.9.2"
   },
   "engines": {
-    "node": "6.x"
-  }
+    "node": ">=6.x"
+  },
+  "engineStrict": true
 }

@@ -6,26 +6,28 @@ const mongoose = require('mongoose');
  * 
  * @type {*|Schema}
  */
-const ItemSchema = new mongoose.Schema({
-   title: {
-       type: String,
-       required: true
-   },
-   description: {
-       type: String
-   },
-   parent: [
-       {
-           type: String
-       }
-   ],
-   icon: {
-       type: String
-   }
-},
-{
-    timestamps: true
-});
+const ItemSchema = new mongoose.Schema(
+    {
+        title: {
+            type: String,
+            required: true
+        },
+        description: {
+            type: String
+        },
+        parent: [
+            {
+                type: String
+            }
+        ],
+        icon: {
+            type: String
+        }
+    },
+    {
+        timestamps: true
+    }
+);
 
 /**
  * Statics

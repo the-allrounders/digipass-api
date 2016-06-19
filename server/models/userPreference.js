@@ -7,27 +7,29 @@ const promise = require('bluebird'),
  * 
  * @type {*|Schema}
  */
-const ItemSchema = new mongoose.Schema({
-    preference: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Preference'
-    },
-    user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-    },
-    values: [{
-        title: {
-            type: String
+const ItemSchema = new mongoose.Schema(
+    {
+        preference: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Preference'
         },
-        value: {
-            type: String
-        }
-    }]
-},
-{
-    timestamps: true
-});
+        user: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User'
+        },
+        values: [{
+            title: {
+                type: String
+            },
+            value: {
+                type: String
+            }
+        }]
+    },
+    {
+        timestamps: true
+    }
+);
 
 
 ItemSchema.index({preference: 1, user: 1}, {unique: true});
@@ -67,7 +69,7 @@ ItemSchema.statics = {
             return Preference.find().execAsync()
                 .then(pref => {
                     return pref;
-                })
+                });
         }
         
         function getUserPreferences(userId) {
@@ -75,7 +77,7 @@ ItemSchema.statics = {
                 .then(userPref => {
                     console.log(userPref);
                     return userPref;
-                })
+                });
         }
         
         return getPreferences().then(dataPreferences => {
@@ -106,7 +108,7 @@ ItemSchema.statics = {
                                             }
                                         });
                                         values.push(value);
-                                    })
+                                    });
                                 }
                             } else {
                                 preference.values.forEach(val => {
@@ -148,8 +150,8 @@ ItemSchema.statics = {
                     }
                 }).error(e => {
                     console.log(e);
-                })
-            }))
+                });
+            }));
         });
     },
 

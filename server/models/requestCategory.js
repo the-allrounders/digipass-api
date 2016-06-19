@@ -6,22 +6,24 @@ const mongoose = require('mongoose');
  * 
  * @type {*|Schema}
  */
-const ItemSchema = new mongoose.Schema({
-   request: {
-       type: mongoose.Schema.Types.ObjectId,
-       ref: 'Request'
-   },
-   category: {
-       type: mongoose.Schema.Types.ObjectId,
-       ref: 'Category'
-   },
-   parent: {
-       type: String
-   }
-},
-{
-    timestamps: true
-});
+const ItemSchema = new mongoose.Schema(
+    {
+        request: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Request'
+        },
+        category: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Category'
+        },
+        parent: {
+            type: String
+        }
+    },
+    {
+        timestamps: true
+    }
+);
 
 /**
  * Statics
@@ -66,10 +68,10 @@ ItemSchema.statics = {
         return this.find(filter)
             .execAsync().then(requestCategory => {
                 if(requestCategory) {
-                    return requestCategory
+                    return requestCategory;
                 }
                 return false;
-            })
+            });
     }
     
 };

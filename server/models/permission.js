@@ -6,30 +6,32 @@ const promise = require('bluebird'),
  * 
  * @type {*|Schema}
  */
-const ItemSchema = new mongoose.Schema({
-    preference: {
-       type: mongoose.Schema.Types.ObjectId,
-       ref: 'Preference'
+const ItemSchema = new mongoose.Schema(
+    {
+        preference: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Preference'
+        },
+        user: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User'
+        },
+        request: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Request'
+        },
+        status: {
+            type: String
+        },
+        parent: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'RequestCategory'
+        }
     },
-    user: {
-       type: mongoose.Schema.Types.ObjectId,
-       ref: 'User'
-    },
-    request: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Request'
-    },
-    status: {
-       type: String
-    },
-    parent: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'RequestCategory'
+    {
+        timestamps: true
     }
-},
-{
-    timestamps: true
-});
+);
 
 /**
  * Statics
@@ -74,7 +76,7 @@ ItemSchema.statics = {
                 }
                 const err = 'No permission by Request Id.';
                 return promise.reject(err);
-            }))
+            }));
     }
 };
 

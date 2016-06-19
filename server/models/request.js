@@ -11,22 +11,24 @@ const promise = require('bluebird'),
  * 
  * @type {*|Schema}
  */
-const ItemSchema = new mongoose.Schema({
-   organisation: {
-       type: mongoose.Schema.Types.ObjectId,
-       ref: 'Organisation'
-   },
-   user: {
-       type: mongoose.Schema.Types.ObjectId,
-       ref: 'User'
-   },
-   status: {
-       type: String
-   }
-},
-{
-    timestamps: true
-});
+const ItemSchema = new mongoose.Schema(
+    {
+        organisation: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Organisation'
+        },
+        user: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User'
+        },
+        status: {
+            type: String
+        }
+    },
+    {
+        timestamps: true
+    }
+);
 
 /**
  * Statics
@@ -60,8 +62,8 @@ ItemSchema.statics = {
         function getRequests(requestModel, userId) {
             return requestModel.find({user: userId})
                 .execAsync().then((req) => {
-                return req;
-            })
+                    return req;
+                });
         }
 
         function getPermissions(request) {
@@ -74,7 +76,7 @@ ItemSchema.statics = {
                         preference: pref,
                         status: p.status,
                         parent: p.parent
-                    }
+                    };
                 });
             });
         }
@@ -91,7 +93,7 @@ ItemSchema.statics = {
                         values: p.values,
                         icon: p.icon
                     };
-                })
+                });
         }
 
         function getOrganisation(organisationId) {
@@ -127,7 +129,7 @@ ItemSchema.statics = {
                                 } else {
                                     return {
                                         remove: true
-                                    }
+                                    };
                                 }
                             });
                     }).filter((category) => {
@@ -146,7 +148,7 @@ ItemSchema.statics = {
                 const categories = getCategories(req);
                 return organisation
                     .then(dataOrganisation => {
-                    return promise.all(permissions)
+                        return promise.all(permissions)
                         .then(dataPermissions => {
                             return promise.all(categories)
                                 .then(dataCategories => {
@@ -182,10 +184,10 @@ ItemSchema.statics = {
                                         id: req.id,
                                         permissions: dataPermissions,
                                         organisation: dataOrganisation
-                                    }
-                                })
-                        })
-                });
+                                    };
+                                });
+                        });
+                    });
             }));
         });
     }

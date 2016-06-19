@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 const router = require('express').Router();
 const passport = require('passport');
 
@@ -33,13 +33,13 @@ router.route('/').post((req, res, next) => {
 
 /**
  * Is used to authenticate with a e-mail address and a password.
- * Returns a Bearer token.
+ * Returns a Bearer token and the user ID.
  */
 router.route('/login').post(passport.authenticate('local', { session: false }), returnUserInfo);
 
 /**
  * Is used to test if a bearer is valid.
- * Returns `Authorized` or `Unauthorized`.
+ * Returns the latest Bearer token and the user ID.
  */
 router.route('/test').get(passport.authenticate('bearer', {session: false}), returnUserInfo);
 

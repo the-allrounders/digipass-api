@@ -1,6 +1,6 @@
 const mongoose          = require('mongoose'),
-      UserPreference    = require('../models/userPreference'),
-      Preference        = require('../models/preference');
+    UserPreference    = require('../models/userPreference'),
+    Preference        = require('../models/preference');
 
 /**
  * Create new userPreference
@@ -17,7 +17,7 @@ function create(req, res, next) {
         userPref = p;
         var values = req.body.values;
         if(typeof req.body.values == String) {
-            values = req.body.values.split(",").map(Number);
+            values = req.body.values.split(',').map(Number);
         }
         if (p.length > 0) {
             userPref = p[0];

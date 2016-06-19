@@ -24,7 +24,7 @@ function list(req, res, next) {
     const { limit = 50, skip = 0 } = req.query;
     RequestCategory.list({ limit, skip }).then((categories) =>	{
         console.log(categories);
-        res.json(categories)
+        res.json(categories);
     })
         .error((e) => next(e));
 }

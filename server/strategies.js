@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const LocalStrategy = require('passport-local').Strategy;
 const BearerStrategy = require('passport-http-bearer').Strategy;
@@ -31,7 +31,7 @@ exports.bearer = new BearerStrategy((token, next) =>
     Users.findOne({tokens: token})
         .then(user => {
             if(!user) return next(null, false);
-            next(null, user)
+            next(null, user);
         })
         .catch(next)
 );

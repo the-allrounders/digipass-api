@@ -53,7 +53,7 @@ function create(req, res, next) {
                                 resolve();
                             });
                     }
-                })
+                });
         }
     );
 

@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 // Node-modules
 const express = require('express'),

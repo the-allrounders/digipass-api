@@ -31,37 +31,13 @@ function create(req, res, next) {
         preference: mongoose.Types.ObjectId(req.body.preference),
         request: mongoose.Types.ObjectId(req.body.request),
         user: mongoose.Types.ObjectId(req.params.userId),
+        parent: mongoose.Types.ObjectId(req.body.parent),
         status: req.body.status
     });
 
-    const categoryId = mongoose.Types.ObjectId(req.body.parent);
-    const requestId = mongoose.Types.ObjectId(req.body.request);
-    const promise = new Promise(
-        (resolve, reject) => {
-            RequestCategory.getByRequestId(requestId, categoryId)
-                .then(requestCategory => {
-                    if (requestCategory.length > 0) {
-                        permission.parent = requestCategory[0].id;
-                        resolve();
-                    } else {
-                        new RequestCategory({
-                            request: requestId,
-                            category: categoryId
-                        }).saveAsync()
-                            .then(savedRequestCategory => {
-                                permission.parent = savedRequestCategory.id;
-                                resolve();
-                            });
-                    }
-                })
-        }
-    );
-
-    promise.then(() => {
-        permission.saveAsync()
-            .then((savedPermission) => res.json(savedPermission))
-            .error((e) => next(e));
-    });
+    permission.saveAsync()
+        .then((savedPermission) => res.json(savedPermission))
+        .error((e) => next(e));
 }
 
 /**

@@ -12,8 +12,14 @@ const ItemSchema = new mongoose.Schema(
             type: String,
             required: true
         },
-        icon: String
-
+        icon: String,
+        devices: [{
+            bluetooth: String,
+            preferences: [{
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Preference'
+            }]
+        }]
     },
     {
         timestamps: true

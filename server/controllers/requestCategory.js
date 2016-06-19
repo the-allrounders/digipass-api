@@ -12,9 +12,7 @@ function create(req, res, next) {
         category: categoryId,
         parent: parentId
     });
-
-    console.log(requestCategory);
-
+    
     requestCategory.saveAsync()
         .then((savedRequestCategory) => res.json(savedRequestCategory))
         .error((e) => next(e));

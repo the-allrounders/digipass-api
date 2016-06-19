@@ -19,7 +19,8 @@ const ItemSchema = new mongoose.Schema(
                 type: mongoose.Schema.Types.ObjectId,
                 ref: 'Preference'
             }]
-        }]
+        }],
+        token: String
     },
     {
         timestamps: true

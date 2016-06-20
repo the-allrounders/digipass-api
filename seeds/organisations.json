@@ -1,1 +1,8 @@
-{ "_id" : ObjectId("57669b4b8fe61d3c40d2ae6e"), "updatedAt" : ISODate("2016-06-19T13:16:59.015Z"), "createdAt" : ISODate("2016-06-19T13:16:59.015Z"), "title" : "CitizenM", "icon" : "", "__v" : 0 }
+[{
+  "_id": "57669b4b8fe61d3c40d2ae6e",
+  "updatedAt": "2016-06-19T13:16:59.015Z",
+  "createdAt": "2016-06-19T13:16:59.015Z",
+  "title": "CitizenM",
+  "icon": "",
+  "__v": 0
+}]

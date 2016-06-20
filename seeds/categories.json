@@ -1,6 +1,72 @@
-{ "_id" : ObjectId("57669bd68fe61d3c40d2ae71"), "updatedAt" : ISODate("2016-06-19T13:19:18.088Z"), "createdAt" : ISODate("2016-06-19T13:19:18.088Z"), "title" : "Restaurant", "description" : "", "icon" : "", "parent" : [ "" ], "__v" : 0 }
-{ "_id" : ObjectId("57669be08fe61d3c40d2ae72"), "updatedAt" : ISODate("2016-06-19T13:19:28.056Z"), "createdAt" : ISODate("2016-06-19T13:19:28.056Z"), "title" : "Eetvoorkeuren", "description" : "", "icon" : "", "parent" : [ "57669bd68fe61d3c40d2ae71" ], "__v" : 0 }
-{ "_id" : ObjectId("5766f553f8a4037b446f9d36"), "updatedAt" : ISODate("2016-06-19T19:41:07.835Z"), "createdAt" : ISODate("2016-06-19T19:41:07.835Z"), "title" : "Hotel", "description" : "", "icon" : "", "parent" : [ ], "__v" : 0 }
-{ "_id" : ObjectId("5766f5a0f8a4037b446f9d37"), "updatedAt" : ISODate("2016-06-19T19:42:24.739Z"), "createdAt" : ISODate("2016-06-19T19:42:24.739Z"), "title" : "Slaapvoorkeuren", "description" : "", "icon" : "", "parent" : [ "5766f553f8a4037b446f9d36" ], "__v" : 0 }
-{ "_id" : ObjectId("5766f5d0f8a4037b446f9d38"), "updatedAt" : ISODate("2016-06-19T19:43:12.388Z"), "createdAt" : ISODate("2016-06-19T19:43:12.388Z"), "title" : "Bedvoorkeuren", "description" : "", "icon" : "", "parent" : [ "5766f5a0f8a4037b446f9d37" ], "__v" : 0 }
-{ "_id" : ObjectId("5766f75ff8a4037b446f9d43"), "updatedAt" : ISODate("2016-06-19T19:49:51.231Z"), "createdAt" : ISODate("2016-06-19T19:49:51.231Z"), "title" : "Verlichting", "description" : "", "icon" : "", "parent" : [ "5766f553f8a4037b446f9d36" ], "__v" : 0 }
+[
+  {
+    "_id": "57669bd68fe61d3c40d2ae71",
+    "updatedAt": "2016-06-19T13:19:18.088Z",
+    "createdAt": "2016-06-19T13:19:18.088Z",
+    "title": "Restaurant",
+    "description": "",
+    "icon": "",
+    "parent": [
+      ""
+    ],
+    "__v": 0
+  },
+  {
+    "_id": "57669be08fe61d3c40d2ae72",
+    "updatedAt": "2016-06-19T13:19:28.056Z",
+    "createdAt": "2016-06-19T13:19:28.056Z",
+    "title": "Eetvoorkeuren",
+    "description": "",
+    "icon": "",
+    "parent": [
+      "57669bd68fe61d3c40d2ae71"
+    ],
+    "__v": 0
+  },
+  {
+    "_id": "5766f553f8a4037b446f9d36",
+    "updatedAt": "2016-06-19T19:41:07.835Z",
+    "createdAt": "2016-06-19T19:41:07.835Z",
+    "title": "Hotel",
+    "description": "",
+    "icon": "",
+    "parent": [],
+    "__v": 0
+  },
+  {
+    "_id": "5766f5a0f8a4037b446f9d37",
+    "updatedAt": "2016-06-19T19:42:24.739Z",
+    "createdAt": "2016-06-19T19:42:24.739Z",
+    "title": "Slaapvoorkeuren",
+    "description": "",
+    "icon": "",
+    "parent": [
+      "5766f553f8a4037b446f9d36"
+    ],
+    "__v": 0
+  },
+  {
+    "_id": "5766f5d0f8a4037b446f9d38",
+    "updatedAt": "2016-06-19T19:43:12.388Z",
+    "createdAt": "2016-06-19T19:43:12.388Z",
+    "title": "Bedvoorkeuren",
+    "description": "",
+    "icon": "",
+    "parent": [
+      "5766f5a0f8a4037b446f9d37"
+    ],
+    "__v": 0
+  },
+  {
+    "_id": "5766f75ff8a4037b446f9d43",
+    "updatedAt": "2016-06-19T19:49:51.231Z",
+    "createdAt": "2016-06-19T19:49:51.231Z",
+    "title": "Verlichting",
+    "description": "",
+    "icon": "",
+    "parent": [
+      "5766f553f8a4037b446f9d36"
+    ],
+    "__v": 0
+  }
+]

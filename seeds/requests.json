@@ -1,2 +1,20 @@
-{ "_id" : ObjectId("5766bc6a7c32934b42f14f61"), "updatedAt" : ISODate("2016-06-19T15:38:18.074Z"), "createdAt" : ISODate("2016-06-19T15:38:18.074Z"), "user" : ObjectId("57669a6c8fe61d3c40d2ae6d"), "organisation" : ObjectId("57669b4b8fe61d3c40d2ae6e"), "status" : "pending", "__v" : 0 }
-{ "_id" : ObjectId("5766fb5ef8a4037b446f9d4e"), "updatedAt" : ISODate("2016-06-19T20:06:54.739Z"), "createdAt" : ISODate("2016-06-19T20:06:54.739Z"), "user" : ObjectId("57669a6c8fe61d3c40d2ae6d"), "organisation" : ObjectId("57669b4b8fe61d3c40d2ae6e"), "status" : "pending", "__v" : 0 }
+[
+  {
+    "_id": "5766bc6a7c32934b42f14f61",
+    "updatedAt": "2016-06-19T15:38:18.074Z",
+    "createdAt": "2016-06-19T15:38:18.074Z",
+    "user": "57669a6c8fe61d3c40d2ae6d",
+    "organisation": "57669b4b8fe61d3c40d2ae6e",
+    "status": "pending",
+    "__v": 0
+  },
+  {
+    "_id": "5766fb5ef8a4037b446f9d4e",
+    "updatedAt": "2016-06-19T20:06:54.739Z",
+    "createdAt": "2016-06-19T20:06:54.739Z",
+    "user": "57669a6c8fe61d3c40d2ae6d",
+    "organisation": "57669b4b8fe61d3c40d2ae6e",
+    "status": "pending",
+    "__v": 0
+  }
+]

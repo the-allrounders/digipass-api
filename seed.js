@@ -1,13 +1,7 @@
 'use strict';
 
 const mongoose = require('mongoose'),
-    config = require('./config/config'),
-    Organisation = require('./server/models/organisation'),
-    Permission = require('./server/models/permission'), // status
-    Category = require('./server/models/category'),
-    Preference = require('./server/models/preference'),
-    Request = require('./server/models/request'),
-    User = require('./server/models/user');
+    config = require('./config/config');
 
 mongoose.connect(config.mongo);
 
@@ -16,30 +10,45 @@ mongoose.connection.on('error', (error) => {
     throw new Error(error);
 });
 mongoose.connection.once('open', () => {
-    console.log('Connected with database');
+    console.log('Dropping database..');
 
-    require('./seeds/organisations').forEach((organisation) => {
-        (new Organisation(organisation)).save();
-    });
+    for(let collection in mongoose.connection.collections){
+        if(typeof collection.drop == 'function') collection.drop();
+    }
 
-    require('./seeds/status.json').forEach((organisation) => {
-        (new Permission(organisation)).save();
-    });
+    console.log('Database dropped.');
 
-    require('./seeds/categories.json').forEach((organisation) => {
-        (new Category(organisation)).save();
-    });
+    let collections = [
+        {
+            data: require('./seeds/organisations'),
+            object: require('./server/models/organisation')
+        },
+        {
+            data: require('./seeds/permissions.json'),
+            object: require('./server/models/permission')
+        },
+        {
+            data: require('./seeds/categories.json'),
+            object: require('./server/models/category')
+        },
+        {
+            data: require('./seeds/preferences.json'),
+            object: require('./server/models/preference')
+        },
+        {
+            data: require('./seeds/requests.json'),
+            object: require('./server/models/request')
+        },
+        {
+            data: require('./seeds/users.json'),
+            object: require('./server/models/user')
+        }
+    ];
 
-    require('./seeds/preferences.json').forEach((organisation) => {
-        (new Preference(organisation)).save();
-    });
+    for(let collection of collections){
+        collection.data.forEach(object => (new collection.object(object)).save());
+    }
 
-    require('./seeds/requests.json').forEach((organisation) => {
-        (new Request(organisation)).save();
-    });
-
-    require('./seeds/users.json').forEach((organisation) => {
-        (new User(organisation)).save();
-    });
+    mongoose.connection.close();
 
 });

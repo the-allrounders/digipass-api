@@ -4,5 +4,10 @@
   "createdAt": "2016-06-19T13:16:59.015Z",
   "title": "CitizenM",
   "icon": "",
+  "devices": [{
+    "bluetooth": "abc123",
+    "preferences": ["5766f68ef8a4037b446f9d39"]
+  }],
+  "token": "lol123",
   "__v": 0
 }]

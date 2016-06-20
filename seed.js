@@ -45,10 +45,17 @@ mongoose.connection.once('open', () => {
         }
     ];
 
+    let collectionsDone = 0;
     for(let collection of collections){
-        collection.data.forEach(object => (new collection.object(object)).save());
+        collection.data.forEach(object => (new collection.object(object)).save(() => {
+            collectionsDone++;
+            if(collectionsDone == collections.length){
+                console.log('Close connection');
+                mongoose.connection.close();
+            }
+        }));
     }
 
-    mongoose.connection.close();
+
 
 });

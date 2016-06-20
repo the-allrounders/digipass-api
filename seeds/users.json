@@ -1,0 +1,1 @@
+{ "_id" : ObjectId("57669a6c8fe61d3c40d2ae6d"), "updatedAt" : ISODate("2016-06-19T13:13:37.586Z"), "createdAt" : ISODate("2016-06-19T13:13:17.002Z"), "email" : "admin@example.com", "password" : "theallrounders", "name" : { "first" : "The", "last" : "Allrounders" }, "tokens" : [ "JGiBaXGUjolRLnIGeohhDJ1P", "4kAnq8eDBbFDMZS-NkNtrAI_" ], "__v" : 2 }

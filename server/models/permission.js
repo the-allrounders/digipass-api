@@ -16,9 +16,9 @@ const ItemSchema = new mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User'
         },
-        request: {
+        organisation: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'Request'
+            ref: 'Organisation'
         },
         status: {
             type: String
@@ -80,4 +80,4 @@ ItemSchema.statics = {
     }
 };
 
-module.exports = mongoose.model('Status', ItemSchema);
+module.exports = mongoose.model('Permission', ItemSchema);

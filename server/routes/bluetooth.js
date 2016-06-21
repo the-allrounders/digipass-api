@@ -6,6 +6,8 @@ const router = require('express').Router(),
     Permission = require('../models/permission');
 
 router.route('/').post(passport.authenticate('bearer', {session: false}), (req, res) => {
+    if(req.user.type != 'user') return res.status(401).send('Not authenticated as user');
+
     Organisations
         .find({devices: {$elemMatch: {bluetooth: req.body.bluetooth}}})
         .then(organisations => {
@@ -32,7 +34,7 @@ router.route('/').post(passport.authenticate('bearer', {session: false}), (req, 
                         });
                     }
                     permission.save();
-                    
+
                 })
             ));
 

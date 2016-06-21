@@ -3,7 +3,12 @@
 const userPreferenceCtrl = require('../controllers/userPreference'),
     Permission = require('../models/permission'),
     permissionCtrl = require('../controllers/permission'),
-    requestCategoryCtrl = require('../controllers/requestCategory');
+    requestCategoryCtrl = require('../controllers/requestCategory'),
+    _ = require('lodash'),
+    mongoose = require('mongoose'),
+    Category = require('../models/category'),
+    promiseWhile = require('../../utils/promiseWhile'),
+    Promise = require('bluebird');
 
 const router = require('express').Router({mergeParams: true});
 
@@ -25,28 +30,49 @@ router.route('/requests').get((req, res) => {
         .then(permissions => {
 
             // Group by organisation
-            var permissionsPerOrganisation = {};
-            permissions
-                // Map this for easier usage to a {key: _id, object: permission} object}
-                .map(permission => ({key: permission.organisation._id, object: permission}))
-                .forEach(permission => {
-                    // Add key if it does not exist yet in the new array
-                    permissionsPerOrganisation[permission.key] = permissionsPerOrganisation[permission.key] || [];
-
-                    // Add permission to new array
-                    permissionsPerOrganisation[permission.key].push(permission.object);
-                });
+            var permissionsPerOrganisation = _.groupBy(permissions, permission => permission.organisation._id);
 
             // Create an object that we actually want
             return Object.keys(permissionsPerOrganisation)
-                .map(k => ({
-                    _id: k,
-                    permissions: permissionsPerOrganisation[k],
-                    organisation: permissionsPerOrganisation[k][0].organisation
+                .map(organisationID => ({
+                    _id: organisationID,
+                    permissions: permissionsPerOrganisation[organisationID],
+                    organisation: permissionsPerOrganisation[organisationID][0].organisation
                 }));
             
         })
-        .then(a => a) // TODO: Add categories
+        .then(organisations => Promise.map(organisations, organisation => {
+
+            // Get the first categories
+            let categoryIDs = [];
+            organisation.permissions.forEach(permission =>
+                categoryIDs = categoryIDs.concat(permission.preference.category)
+            );
+            categoryIDs = _.uniqWith(categoryIDs, _.isEqual);
+
+            // Resolve all categories
+            return promiseWhile(() => _.some(categoryIDs, String), () => {
+
+                // Convert categoryIDs to objectIDs for Mongoose
+                var objectIDs = _.filter(categoryIDs, String).map(id => mongoose.Types.ObjectId(id));
+
+                // Search for all objectIDs
+                return Category.find({_id: { $in: objectIDs}}).then(categories => {
+
+                    // Add results to organisation.categories
+                    organisation.categories = organisation.categories || [];
+                    organisation.categories = organisation.categories.concat(categories);
+
+                    // Determinate all available and parent categories
+                    let available = organisation.categories.map(category => category._id);
+                    let parents = organisation.categories.map(category => category.parent[0]);
+
+                    // Determinate all needed categories
+                    categoryIDs = _.difference(parents, available, categoryIDs).filter(function(e){return e;});
+                });
+
+            }).then(() => organisation);
+        }))
         .then(a => a) // TODO: Add children to all categories
         .then(permissions => res.json(permissions));
 });

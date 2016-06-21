@@ -77,21 +77,37 @@ router.route('/requests').get((req, res) => {
         }))
         .then(organisations => {
             organisations.forEach(organisation => organisation.permissions.forEach(permission => {
-                console.log('PERMISSION', permission._id);
-                let parents = permission.preference.category;
+
+                // Save all parents in a string array
+                let parents = permission.preference.category.map(permissionId => permissionId.toString());
+
+                // While parents have parents
                 while(parents.length){
 
-                    // Check which parents there are left
-                    let categoriesToAdd = organisation.categories.filter(category => (parents.indexOf(category._id) != -1) );
 
-                    console.log(categoriesToAdd);
+                    var newparents = [];
+                    organisation.categories = organisation.categories.map(category => {
 
-                    parents = [];
-                    categoriesToAdd.forEach(category => {
-                        if(category.parent.length) parents.push(category.parent[0]);
-                        category.children = category.children || [];
-                        category.children.push(permission._id);
+                        // If this is not the parent we need, return
+                        if(parents.indexOf(category._id.toString()) == -1) return category;
+
+                        // Create new object, fuck mongoose
+                        var newcategory = {
+                            _id: category._id,
+                            title: category.title,
+                            description: category.description,
+                            icon: category.icon,
+                            parent: category.parent,
+                            children: category.children || []
+                        };
+
+                        // Check if it has parents
+                        if(category.parent.length) newparents.push(category.parent[0]);
+                        newcategory.children.push(permission._id);
+                        return newcategory;
                     });
+
+                    parents = newparents;
 
                 }
             }));

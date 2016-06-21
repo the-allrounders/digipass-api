@@ -22,20 +22,27 @@ router.route('/requests').get((req, res) => {
         .find({user: req.params.userId})
         .populate('organisation', '_id title icon')
         .populate('preference')
-        .then(permissions => { // Group by organisation
-            
+        .then(permissions => {
+
+            // Group by organisation
             var permissionsPerOrganisation = {};
             permissions
+                // Map this for easier usage to a {key: _id, object: permission} object}
                 .map(permission => ({key: permission.organisation._id, object: permission}))
                 .forEach(permission => {
+                    // Add key if it does not exist yet in the new array
                     permissionsPerOrganisation[permission.key] = permissionsPerOrganisation[permission.key] || [];
-                    permissionsPerOrganisation[permission.key].push(permission);
+
+                    // Add permission to new array
+                    permissionsPerOrganisation[permission.key].push(permission.object);
                 });
+
+            // Create an object that we actually want
             return Object.keys(permissionsPerOrganisation)
                 .map(k => ({
                     _id: k,
-                    permissions: permissionsPerOrganisation[k].map(permission => permission.object),
-                    organisation: permissionsPerOrganisation[k][0].object.organisation
+                    permissions: permissionsPerOrganisation[k],
+                    organisation: permissionsPerOrganisation[k][0].organisation
                 }));
             
         })

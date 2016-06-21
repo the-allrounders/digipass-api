@@ -3,7 +3,6 @@
 const userPreferenceCtrl = require('../controllers/userPreference'),
     Permission = require('../models/permission'),
     permissionCtrl = require('../controllers/permission'),
-    requestCategoryCtrl = require('../controllers/requestCategory'),
     _ = require('lodash'),
     mongoose = require('mongoose'),
     Category = require('../models/category'),
@@ -120,9 +119,5 @@ router.route('/permissions')
     .get(permissionCtrl.list)
     .post(permissionCtrl.create)
     .put(permissionCtrl.update);
-
-router.route('/requestCategories')
-    .post(requestCategoryCtrl.create)
-    .get(requestCategoryCtrl.list);
 
 module.exports = router;

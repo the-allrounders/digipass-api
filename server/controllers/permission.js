@@ -1,5 +1,4 @@
 const Permission = require('../models/permission'),
-    RequestCategory = require('../models/requestCategory'),
     mongoose = require('mongoose');
 
 /**

@@ -22,10 +22,6 @@ const ItemSchema = new mongoose.Schema(
         },
         status: {
             type: String
-        },
-        parent: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'RequestCategory'
         }
     },
     {

@@ -75,10 +75,10 @@ router.route('/requests').get((req, res) => {
 
         }))
         .then(organisations => {
-            if(req.query.pauper != 'ian') return organisations;
+            if(req.query.transform != 'true') return organisations;
 
-            // Everything below is just because Ian can't handle normal JSON.
-            // To transform, use /requests?pauper=ian
+            // Perform transform to make field names the same and improve genericity
+            // To transform, use /requests?transform=true
 
             // Add children permissions to all categories
             organisations.forEach(organisation => organisation.permissions.forEach(permission => {

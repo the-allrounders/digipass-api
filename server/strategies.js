@@ -31,17 +31,14 @@ exports.local = new LocalStrategy((username, password, next) =>
 exports.bearer = new BearerStrategy((token, next) =>
     Users.findOne({tokens: token})
         .then(user => {
-            if(!user) throw new Error('No user found.');
+            if(!user) return Organisations.findOne({token: token}).then(organisation => {
+                if(!organisation) throw new Error('No user or organisation with this token found');
+                organisation.type = 'organisation';
+                return organisation;
+            });
             user.type = 'user';
             return user;
         })
-        .catch(() =>
-            Organisations.findOne({token: token}).then(organisation => {
-                if(!organisation) throw new Error('No organisation found');
-                organisation.type = 'organisation';
-                return organisation;
-            })
-        )
         .then(object => next(null, object))
         .catch(() => next(null, false))
 );

@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/the-allrounders/digipass-api#readme",
   "dependencies": {
+    "bcrypt": "^0.8.7",
     "bluebird": "^3.4.0",
     "body-parser": "^1.15.1",
     "cors": "^2.7.1",

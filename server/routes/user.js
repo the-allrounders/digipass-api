@@ -1,6 +1,8 @@
 'use strict';
-const router = require('express').Router();
-const passport = require('passport');
+const router = require('express').Router(),
+    passport = require('passport'),
+    Promise = require('bluebird'),
+    bcrypt = Promise.promisifyAll(require('bcrypt'));
 
 const User = require('../models/user');
 
@@ -17,16 +19,19 @@ function returnUserInfo (req, res){
  * Is used to create a new user.
  */
 router.route('/').post((req, res, next) => {
-    const user = new User({
-        email: req.body.username,
-        password: req.body.password,
-        name: {
-            first: req.body.name.first,
-            last: req.body.name.last
-        }
-    });
+    return bcrypt.hashAsync(req.body.password, 10)
+        .then(password => {
+            const user = new User({
+                email: req.body.username,
+                password: password,
+                name: {
+                    first: req.body.name.first,
+                    last: req.body.name.last
+                }
+            });
 
-    user.save()
+            return user.save();
+        })
         .then(() => next())
         .catch(err => res.status(400).json(err));
 }, passport.authenticate('local', { session: false }), returnUserInfo);

@@ -1,5 +1,7 @@
+'use strict';
+
 const userPreferenceCtrl = require('../controllers/userPreference'),
-    requestCtrl = require('../controllers/request'),
+    Permission = require('../models/permission'),
     permissionCtrl = require('../controllers/permission'),
     requestCategoryCtrl = require('../controllers/requestCategory');
 
@@ -12,9 +14,35 @@ router.route('/preferences')
 router.route('/preferences/:preferenceId')
     .delete(userPreferenceCtrl.remove); /** DELETE /api/preferences/:preferenceId - Delete preference */
 
-router.route('/requests')
-    .get(requestCtrl.list)
-    .post(requestCtrl.create);
+/**
+ * This is used to get the list of requests
+ */
+router.route('/requests').get((req, res) => {
+    Permission
+        .find({user: req.params.userId})
+        .populate('organisation', '_id title icon')
+        .populate('preference')
+        .then(permissions => { // Group by organisation
+            
+            var permissionsPerOrganisation = {};
+            permissions
+                .map(permission => ({key: permission.organisation._id, object: permission}))
+                .forEach(permission => {
+                    permissionsPerOrganisation[permission.key] = permissionsPerOrganisation[permission.key] || [];
+                    permissionsPerOrganisation[permission.key].push(permission);
+                });
+            return Object.keys(permissionsPerOrganisation)
+                .map(k => ({
+                    _id: k,
+                    permissions: permissionsPerOrganisation[k].map(permission => permission.object),
+                    organisation: permissionsPerOrganisation[k][0].object.organisation
+                }));
+            
+        })
+        .then(a => a) // TODO: Add categories
+        .then(a => a) // TODO: Add children to all categories
+        .then(permissions => res.json(permissions));
+});
 
 router.route('/permissions')
     .get(permissionCtrl.list)

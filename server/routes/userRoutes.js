@@ -75,6 +75,12 @@ router.route('/requests').get((req, res) => {
 
         }))
         .then(organisations => {
+            if(req.query.pauper != 'ian') return organisations;
+
+            // Everything below is just because Ian can't handle normal JSON.
+            // To transform, use /requests?pauper=ian
+
+            // Add children permissions to all categories
             organisations.forEach(organisation => organisation.permissions.forEach(permission => {
 
                 // Save all parents in a string array
@@ -102,7 +108,10 @@ router.route('/requests').get((req, res) => {
 
                         // Check if it has parents
                         if(category.parent.length) newparents.push(category.parent[0]);
-                        newcategory.children.push(permission._id);
+                        newcategory.children.push({
+                            _id: permission._id,
+                            status: permission.status
+                        });
                         return newcategory;
                     });
 
@@ -110,13 +119,9 @@ router.route('/requests').get((req, res) => {
 
                 }
             }));
-            return organisations;
-        })
-        .then(organisations => {
 
-            // This is easier for the paupercode of Ian. To transform, use /requests?pauper=ian
-            if(req.query.pauper == 'ian') organisations.forEach(organisation => {
-
+            // Add all categories to the permissions array
+            organisations.forEach(organisation => {
                 organisation.permissions = organisation.permissions.map(permission => {
                     permission = permission.toJSON();
                     permission.parent = permission.preference.category;

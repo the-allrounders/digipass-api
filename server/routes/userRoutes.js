@@ -112,6 +112,22 @@ router.route('/requests').get((req, res) => {
             }));
             return organisations;
         })
+        .then(organisations => {
+
+            // This is easier for the paupercode of Ian. To transform, use /requests?pauper=ian
+            if(req.query.pauper == 'ian') organisations.forEach(organisation => {
+
+                organisation.permissions = organisation.permissions.map(permission => {
+                    permission = permission.toJSON();
+                    permission.parent = permission.preference.category;
+                    return permission;
+                }).concat(organisation.categories);
+
+                organisation.categories = null;
+            });
+
+            return organisations;
+        })
         .then(permissions => res.json(permissions));
 });
 

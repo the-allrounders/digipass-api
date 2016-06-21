@@ -48,16 +48,13 @@ router.route('/requests').get((req, res) => {
             organisation.permissions.forEach(permission =>
                 categoryIDs = categoryIDs.concat(permission.preference.category)
             );
-            categoryIDs = _.uniqWith(categoryIDs, _.isEqual);
+            categoryIDs = _.uniqWith(categoryIDs, _.isEqual).map(id => mongoose.Types.ObjectId(id));
 
             // Resolve all categories
-            return promiseWhile(() => _.some(categoryIDs, String), () => {
-
-                // Convert categoryIDs to objectIDs for Mongoose
-                var objectIDs = _.filter(categoryIDs, String).map(id => mongoose.Types.ObjectId(id));
+            return promiseWhile(() => categoryIDs.length, () => {
 
                 // Search for all objectIDs
-                return Category.find({_id: { $in: objectIDs}}).then(categories => {
+                return Category.find({_id: { $in: categoryIDs}}).then(categories => {
 
                     // Add results to organisation.categories
                     organisation.categories = organisation.categories || [];
@@ -68,12 +65,38 @@ router.route('/requests').get((req, res) => {
                     let parents = organisation.categories.map(category => category.parent[0]);
 
                     // Determinate all needed categories
-                    categoryIDs = _.difference(parents, available, categoryIDs).filter(function(e){return e;});
+                    categoryIDs = _.differenceBy(
+                        parents.filter(function(e){return e;}),
+                        available.concat(categoryIDs),
+                        a => a.toString()).map(id => mongoose.Types.ObjectId(id)
+                    );
                 });
 
             }).then(() => organisation);
+
         }))
-        .then(a => a) // TODO: Add children to all categories
+        .then(organisations => {
+            organisations.forEach(organisation => organisation.permissions.forEach(permission => {
+                console.log('PERMISSION', permission._id);
+                let parents = permission.preference.category;
+                while(parents.length){
+
+                    // Check which parents there are left
+                    let categoriesToAdd = organisation.categories.filter(category => (parents.indexOf(category._id) != -1) );
+
+                    console.log(categoriesToAdd);
+
+                    parents = [];
+                    categoriesToAdd.forEach(category => {
+                        if(category.parent.length) parents.push(category.parent[0]);
+                        category.children = category.children || [];
+                        category.children.push(permission._id);
+                    });
+
+                }
+            }));
+            return organisations;
+        })
         .then(permissions => res.json(permissions));
 });
 

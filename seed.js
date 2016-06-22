@@ -33,17 +33,12 @@ mongoose.connection.once('open', () => {
         }
     ];
 
-    let collectionsDone = 0;
+    let collectionsDone = 1;
     for(let collection of collections){
-        collection.data.forEach(object => (new collection.object(object)).save(() => {
-            collectionsDone++;
-            if(collectionsDone == collections.length){
-                console.log('Close connection');
-                mongoose.connection.close();
-            }
+        collection.data.forEach(object => (new collection.object(object)).save().then(() => {
+            console.log("Done with object");
+            if (collectionsDone == collections.length) mongoose.connection.close();
+            else collectionsDone++;
         }));
     }
-
-
-
 });

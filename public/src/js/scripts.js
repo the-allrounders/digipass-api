@@ -18,7 +18,9 @@ if($organisations) {
             show = true;
         }
     });
-    
-    $('.addOrganisation').on('click', organisation.newOrganisation);
+
+    $('.addOrganisation').on('click', organisation.newOrganisation.bind(organisation));
+    $('#organisations').on('click', '.delete', organisation.removeOrganisation.bind(organisation));
+    $('#organisations').on('click', '.edit', organisation.setUpdate);
 }
 

@@ -1,5 +1,5 @@
 const config = {
-    url: 'http://localhost:3000/api'
+    url: 'http://digipass-api.herokuapp.com/api'
 };
 
 export default config;

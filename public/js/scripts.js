@@ -11,6 +11,42 @@ var _settings2 = _interopRequireDefault(_settings);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var modal = {
+    promptModal: function promptModal(callback) {
+        var $modal = $('.modal').show();
+        var $yes = $modal.find('.yes');
+        var $no = $modal.find('.no');
+
+        $yes.on('click', function () {
+            $modal.hide();
+            callback();
+        });
+
+        $no.on('click', function () {
+            $modal.hide();
+        });
+    }
+};
+
+exports.default = modal;
+
+},{"./settings.js":4}],2:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _settings = require('./settings.js');
+
+var _settings2 = _interopRequireDefault(_settings);
+
+var _modal = require('./modal.js');
+
+var _modal2 = _interopRequireDefault(_modal);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 var organisation = {
     getOrganisations: function getOrganisations() {
         var _this = this;
@@ -20,6 +56,7 @@ var organisation = {
             method: 'get',
             success: function success(data) {
                 if (data) {
+                    $('#organisations').find('tbody').html('');
                     data.forEach(function (organisation) {
                         _this.createInstance(organisation);
                     });
@@ -30,14 +67,17 @@ var organisation = {
         });
     },
     createInstance: function createInstance(organisation) {
+        var $org = $('#organisations');
         var devices = organisation.devices.map(function (device) {
             return '<li class="device" data-id="' + device._id + '">' + device._id + '</li>';
         });
 
-        var tableElement = '<tr class="organisation" data-id="' + organisation._id + '"><td><img src="' + organisation.icon + '" alt=""></td><td>' + organisation.title + '</td><td><ul>' + devices + '</ul></td><td><button type="button" class="btn btn-block btn-primary delete">Delete</button><button type="button" class="btn btn-block btn-primary edit">Edit</button></td></tr>';
-        $('#organisations').find('tbody').append(tableElement);
+        var tableElement = '<tr class="organisation"><td><img src="' + organisation.icon + '" alt=""></td><td>' + organisation.title + '</td><td><ul>' + devices + '</ul></td><td><button type="button" class="btn btn-block btn-primary delete" data-id="' + organisation._id + '">Delete</button><button type="button" class="btn btn-block btn-primary edit" data-id="' + organisation._id + '">Edit</button></td></tr>';
+        $org.find('tbody').append(tableElement);
     },
     newOrganisation: function newOrganisation() {
+        var _this2 = this;
+
         var title = $('#inputTitle').val(),
             iconUrl = $('#inputUrl').val(),
             preferences = $('select[name=selector]').val(),
@@ -55,14 +95,41 @@ var organisation = {
                     preferences: preferences,
                     title: crownstoneName
                 }]
+            },
+            success: function success() {
+                _this2.getOrganisations();
             }
         });
+    },
+    removeOrganisation: function removeOrganisation(e) {
+        var _this3 = this;
+
+        var id = $(e.target).data('id');
+        _modal2.default.promptModal(function () {
+            $.ajax({
+                url: _settings2.default.url + '/organisations/' + id,
+                method: 'delete',
+                success: function success(data) {
+                    _this3.getOrganisations();
+                },
+                error: function error(data) {
+                    console.log(data);
+                }
+            });
+        });
+    },
+    setUpdate: function setUpdate() {
+        var title = $('#inputTitle'),
+            iconUrl = $('#inputUrl'),
+            preferences = $('select[name=selector]'),
+            bluetooth = $('#inputCrownstoneId'),
+            crownstoneName = $('#inputCrownstoneName');
     }
 };
 
 exports.default = organisation;
 
-},{"./settings.js":3}],2:[function(require,module,exports){
+},{"./modal.js":1,"./settings.js":4}],3:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -97,19 +164,19 @@ var preference = {
 
 exports.default = preference;
 
-},{"./settings.js":3}],3:[function(require,module,exports){
+},{"./settings.js":4}],4:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
 var config = {
-    url: 'http://localhost:3000/api'
+    url: 'http://digipass-api.herokuapp.com/api'
 };
 
 exports.default = config;
 
-},{}],4:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 'use strict';
 
 var _organisation = require('./models/organisation.js');
@@ -140,7 +207,9 @@ if ($organisations) {
         }
     });
 
-    $('.addOrganisation').on('click', _organisation2.default.newOrganisation);
+    $('.addOrganisation').on('click', _organisation2.default.newOrganisation.bind(_organisation2.default));
+    $('#organisations').on('click', '.delete', _organisation2.default.removeOrganisation.bind(_organisation2.default));
+    $('#organisations').on('click', '.edit', _organisation2.default.setUpdate);
 }
 
-},{"./models/organisation.js":1,"./models/preference.js":2}]},{},[4]);
+},{"./models/organisation.js":2,"./models/preference.js":3}]},{},[5]);

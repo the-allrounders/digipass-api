@@ -47,5 +47,5 @@ gulp.task('watch',function() {
     browserSync.init({
         server: distDir
     });
-    gulp.watch([srcDir+'/sass/*.scss', srcDir+'/js/scripts.js'], ['styles', 'scripts']);
+    gulp.watch([srcDir+'/sass/*.scss', srcDir+'/js/**/*.js'], ['styles', 'scripts']);
 });

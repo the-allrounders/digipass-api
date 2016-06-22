@@ -14,6 +14,7 @@ const ItemSchema = new mongoose.Schema(
         },
         icon: String,
         devices: [{
+            title: String,
             bluetooth: String,
             preferences: [{
                 type: mongoose.Schema.Types.ObjectId,

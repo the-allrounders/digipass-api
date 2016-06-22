@@ -22,7 +22,28 @@ const organisation = {
         });
 
         const tableElement = '<tr class="organisation" data-id="'+organisation._id+'"><td><img src="'+organisation.icon+'" alt=""></td><td>'+organisation.title+'</td><td><ul>'+devices+'</ul></td><td><button type="button" class="btn btn-block btn-primary delete">Delete</button><button type="button" class="btn btn-block btn-primary edit">Edit</button></td></tr>';
-        console.log($('#organisations').find('tbody').append(tableElement));
+        $('#organisations').find('tbody').append(tableElement);
+    },
+    newOrganisation() {
+        const title = $('#inputTitle').val(),
+            iconUrl = $('#inputUrl').val(),
+            preferences = $('select[name=selector]').val(),
+            bluetooth = $('#inputCrownstoneId').val(),
+            crownstoneName = $('#inputCrownstoneName').val();
+
+        $.ajax({
+            url: config.url+ '/organisations',
+            method: 'post',
+            data: {
+                title: title,
+                icon: iconUrl,
+                devices: [{
+                    bluetooth: bluetooth,
+                    preferences: preferences,
+                    title: crownstoneName
+                }]
+            }
+        })
     }
 };
 

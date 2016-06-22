@@ -17,6 +17,8 @@ if($organisations) {
             $newOrganisation.show();
             show = true;
         }
-    })
+    });
+    
+    $('.addOrganisation').on('click', organisation.newOrganisation);
 }
 

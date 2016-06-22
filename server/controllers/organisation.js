@@ -27,7 +27,8 @@ function get(req, res) {
 function create(req, res, next) {
     const organisation = new Organisation({
         title: req.body.title,
-        icon: req.body.icon
+        icon: req.body.icon,
+        devices: req.body.devices
     });
 
     organisation.saveAsync()

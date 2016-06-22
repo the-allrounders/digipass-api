@@ -35,7 +35,28 @@ var organisation = {
         });
 
         var tableElement = '<tr class="organisation" data-id="' + organisation._id + '"><td><img src="' + organisation.icon + '" alt=""></td><td>' + organisation.title + '</td><td><ul>' + devices + '</ul></td><td><button type="button" class="btn btn-block btn-primary delete">Delete</button><button type="button" class="btn btn-block btn-primary edit">Edit</button></td></tr>';
-        console.log($('#organisations').find('tbody').append(tableElement));
+        $('#organisations').find('tbody').append(tableElement);
+    },
+    newOrganisation: function newOrganisation() {
+        var title = $('#inputTitle').val(),
+            iconUrl = $('#inputUrl').val(),
+            preferences = $('select[name=selector]').val(),
+            bluetooth = $('#inputCrownstoneId').val(),
+            crownstoneName = $('#inputCrownstoneName').val();
+
+        $.ajax({
+            url: _settings2.default.url + '/organisations',
+            method: 'post',
+            data: {
+                title: title,
+                icon: iconUrl,
+                devices: [{
+                    bluetooth: bluetooth,
+                    preferences: preferences,
+                    title: crownstoneName
+                }]
+            }
+        });
     }
 };
 
@@ -68,7 +89,7 @@ var preference = {
     },
     createInstance: function createInstance(preference) {
         var element = preference.map(function (pref) {
-            return '<option data-id="' + pref._id + '">' + pref.title + '</option>';
+            return '<option value="' + pref._id + '">' + pref.title + '</option>';
         });
         $('#selectPreferences').append(element);
     }
@@ -83,7 +104,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 var config = {
-    url: 'http://digipass-api.herokuapp.com/api'
+    url: 'http://localhost:3000/api'
 };
 
 exports.default = config;
@@ -118,6 +139,8 @@ if ($organisations) {
             show = true;
         }
     });
+
+    $('.addOrganisation').on('click', _organisation2.default.newOrganisation);
 }
 
 },{"./models/organisation.js":1,"./models/preference.js":2}]},{},[4]);

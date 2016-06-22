@@ -1,4 +1,5 @@
 import config from './settings.js';
+import modal from './modal.js';
 
 const organisation = {
     getOrganisations() {
@@ -7,6 +8,7 @@ const organisation = {
             method: 'get',
             success: (data) => {
                 if(data) {
+                    $('#organisations').find('tbody').html('');
                     data.forEach((organisation) => {
                         this.createInstance(organisation);
                     });
@@ -17,12 +19,13 @@ const organisation = {
         });
     },
     createInstance(organisation) {
-        const devices = organisation.devices.map((device) => {
+        const $org = $('#organisations');
+        let devices = organisation.devices.map((device) => {
             return '<li class="device" data-id="'+device._id+'">'+device._id+'</li>';
         });
 
-        const tableElement = '<tr class="organisation" data-id="'+organisation._id+'"><td><img src="'+organisation.icon+'" alt=""></td><td>'+organisation.title+'</td><td><ul>'+devices+'</ul></td><td><button type="button" class="btn btn-block btn-primary delete">Delete</button><button type="button" class="btn btn-block btn-primary edit">Edit</button></td></tr>';
-        $('#organisations').find('tbody').append(tableElement);
+        let tableElement = '<tr class="organisation"><td><img src="'+organisation.icon+'" alt=""></td><td>'+organisation.title+'</td><td><ul>'+devices+'</ul></td><td><button type="button" class="btn btn-block btn-primary delete" data-id="'+organisation._id+'">Delete</button><button type="button" class="btn btn-block btn-primary edit" data-id="'+organisation._id+'">Edit</button></td></tr>';
+        $org.find('tbody').append(tableElement);
     },
     newOrganisation() {
         const title = $('#inputTitle').val(),
@@ -42,8 +45,31 @@ const organisation = {
                     preferences: preferences,
                     title: crownstoneName
                 }]
+            },
+            success: () => {
+                this.getOrganisations();
             }
         })
+    },
+    removeOrganisation(e) {
+        const id = $(e.target).data('id');
+        modal.promptModal(() => {$.ajax({
+            url: config.url+ '/organisations/'+id,
+            method: 'delete',
+            success: (data) => {
+                this.getOrganisations();
+            },
+            error: (data) => {
+                console.log(data);
+            }
+        })});
+    },
+    setUpdate() {
+        const title = $('#inputTitle'),
+            iconUrl = $('#inputUrl'),
+            preferences = $('select[name=selector]'),
+            bluetooth = $('#inputCrownstoneId'),
+            crownstoneName = $('#inputCrownstoneName');
     }
 };
 

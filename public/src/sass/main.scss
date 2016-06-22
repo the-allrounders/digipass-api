@@ -1,0 +1,26 @@
+$primaryColor:  #18ade4;
+$lightGrey:     #ddd;
+
+.main-header {
+  .logo-mini {
+    color: #ffffff;
+  }
+  .logo-lg {
+    color: #FFFFFF;
+  }
+  .navbar {
+    background-color: $primaryColor;
+  }
+  .sidebar-toggle {
+    color: #ffffff;
+  }
+}
+
+.main-sidebar {
+  color: #ffffff;
+  background-color: #072f3e;
+
+  .fa-link, a {
+    color: $lightGrey;
+  }
+}

@@ -1,0 +1,17 @@
+.main-header .logo-mini {
+  color: #ffffff; }
+
+.main-header .logo-lg {
+  color: #FFFFFF; }
+
+.main-header .navbar {
+  background-color: #18ade4; }
+
+.main-header .sidebar-toggle {
+  color: #ffffff; }
+
+.main-sidebar {
+  color: #ffffff;
+  background-color: #072f3e; }
+  .main-sidebar .fa-link, .main-sidebar a {
+    color: #ddd; }

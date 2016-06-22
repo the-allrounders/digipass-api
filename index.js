@@ -4,7 +4,8 @@ console.log('Starting app..');
 
 const promise = require('bluebird'),
     config = require('./config/config'),
-    mongoose = promise.promisifyAll(require('mongoose'));
+    mongoose = promise.promisifyAll(require('mongoose')),
+    express = require('express');
 
 const app = require('./server');
 
@@ -18,6 +19,12 @@ mongoose.connection.on('error', (error) => {
 
 mongoose.connection.once('open', () => {
     console.log('Connected with database');
+
+    //statics for admin panel
+    app.use(express.static(__dirname+'/public'));
+    app.use('/dist', express.static(__dirname+'/node_modules/admin-lte/dist'));
+    app.use('/adminlte', express.static(__dirname+'/node_modules/admin-lte'));
+
     app.listen(config.port);
     console.log('Server running on port', config.port);
 });

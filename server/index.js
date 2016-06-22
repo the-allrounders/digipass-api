@@ -14,15 +14,12 @@ const app = express();
 // Initialize passport
 passport.use(strategies.local);
 passport.use(strategies.bearer);
-app.use(passport.initialize());
 
+app.use(passport.initialize());
 // parse body params and attach them to req.body
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 
-//statics for admin panel
-app.use(express.static('../public'));
-app.use('/dist', express.static('../node_modules/admin-lte/dist'));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // enable CORS - Cross Origin Resource Sharing
 app.use(require('cors')());

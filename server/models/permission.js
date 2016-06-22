@@ -22,6 +22,10 @@ const ItemSchema = new mongoose.Schema(
         },
         status: {
             type: String
+        },
+        lastRequestedAt: {
+            type: Date,
+            default: Date.now
         }
     },
     {

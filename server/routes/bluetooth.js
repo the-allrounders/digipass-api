@@ -33,6 +33,9 @@ router.route('/').post(passport.authenticate('bearer', {session: false}), (req, 
                             status: 'pending'
                         });
                     }
+
+                    permission.lastRequestedAt = Date.now;
+
                     permission.save();
 
                 })

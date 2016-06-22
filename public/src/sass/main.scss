@@ -24,3 +24,12 @@ $lightGrey:     #ddd;
     color: $lightGrey;
   }
 }
+
+#organisations {
+  .delete {
+    background-color: #bc3c3c;
+  }
+  .edit {
+    background-color: #3cbc75;
+  }
+}

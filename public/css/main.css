@@ -15,3 +15,9 @@
   background-color: #072f3e; }
   .main-sidebar .fa-link, .main-sidebar a {
     color: #ddd; }
+
+#organisations .delete {
+  background-color: #bc3c3c; }
+
+#organisations .edit {
+  background-color: #3cbc75; }

@@ -1,18 +1,12 @@
-const url               = 'localhost:3000/api';
+const url               = 'http://digipass-api.herokuapp.com/api';
 const $organisations    = $('#organisations');
 
-const organisation = {
-  getOrganisations() {
-      $.ajax({
-          url: url + '/organisations',
-          method: 'get',
-          success: (data) => {
-              console.log(data);
-          }
-      });
-  }
-};
+import organisation from './models/organisation.js';
+import preference from './models/preference.js';
 
 if($organisations) {
     organisation.getOrganisations();
+    preference.getPreferences();
+
+    $organisations.find()
 }

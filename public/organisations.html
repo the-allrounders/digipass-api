@@ -58,12 +58,41 @@
 
         <!-- Main content -->
         <section class="content">
-
             <div class="row">
                 <div class="col-xs-12">
+                    <button type="button" class="btn btn-block btn-primary add">Add Organisation</button>
                     <div class="box">
                         <div class="box-header">
-                            <h3 class="box-title">Hover Data Table</h3>
+                            <h3 class="box-title">New Organisation</h3>
+                        </div>
+                        <div class="box-body new-item">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="inputTitle">Title</label>
+                                        <input type="email" class="form-control" id="inputTitle" placeholder="Enter title">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputUrl">Icon Url</label>
+                                        <input type="text" class="form-control" id="inputUrl" placeholder="Enter icon URL">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Select preferences</label>
+                                        <select class="form-control select2" multiple="multiple" data-placeholder="Select a Preference" style="width: 100%;" id="selectPreferences">
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="button" class="btn btn-block btn-primary delete">Add</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <div class="box-header">
+                            <h3 class="box-title">Organisations</h3>
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
@@ -71,19 +100,20 @@
                                 <thead>
                                 <tr>
                                     <th>Icon</th>
-                                    <th>title</th>
+                                    <th>Title</th>
+                                    <th>Devices</th>
+                                    <th>Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>test</td>
-                                    <td>test</td>
-                                </tr>
+
                                 </tbody>
                                 <tfoot>
                                 <tr>
                                     <th>Icon</th>
-                                    <th>title</th>
+                                    <th>Title</th>
+                                    <th>Devices</th>
+                                    <th>Action</th>
                                 </tr>
                                 </tfoot>
                             </table>
@@ -101,12 +131,8 @@
 
     <!-- Main Footer -->
     <footer class="main-footer">
-        <!-- To the right -->
-        <div class="pull-right hidden-xs">
-            Anything you want
-        </div>
         <!-- Default to the left -->
-        <strong>Copyright &copy; 2015 <a href="#">Digipass</a>.</strong> All rights reserved.
+        <strong>Copyright &copy; 2016 <a href="#">Digipass</a>.</strong> All rights reserved.
     </footer>
     <!-- Add the sidebar's background. This div must be placed
          immediately after the control sidebar -->

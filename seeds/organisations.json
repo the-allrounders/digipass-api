@@ -2,8 +2,8 @@
   "title": "CitizenM",
   "icon": "",
   "devices": [{
-    "bluetooth": "00:00:00:00:00:00",
-    "preferences": ["5766f68ef8a4037b446f9d39"]
+    "bluetooth": "abc123",
+    "preferences": ["5766f68ef8a4037b446f9d39", "5766f98ef8a4037b446f9df9"]
   }],
   "token": "lol123"
 },
@@ -11,18 +11,18 @@
     "title": "Restaurant Zeezicht",
     "icon": "",
     "devices": [{
-      "bluetooth": "00:00:00:00:00:00",
+      "bluetooth": "def123",
       "preferences": ["5766f68ef8a4037b446f9d39"]
     }],
-    "token": "lol123"
+    "token": "lol456"
   },
   {
-    "title": "CitizenM",
+    "title": "Albert Heijn",
     "icon": "",
     "devices": [{
-      "bluetooth": "00:00:00:00:00:00",
+      "bluetooth": "ghi123",
       "preferences": ["5766f68ef8a4037b446f9d39"]
     }],
-    "token": "lol123"
+    "token": "lol789"
   }
 ]

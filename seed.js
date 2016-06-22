@@ -37,8 +37,8 @@ mongoose.connection.once('open', () => {
     for(let collection of collections){
         collection.data.forEach(object => (new collection.object(object)).save().then(() => {
             console.log("Done with object");
-            if (collectionsDone == collections.length) mongoose.connection.close();
-            else collectionsDone++;
+            //if (collectionsDone == collections.length) mongoose.connection.close();
+            //else collectionsDone++;
         }));
     }
 });

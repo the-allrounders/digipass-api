@@ -73,7 +73,7 @@
     ]
   },
   {
-    "_id": "57669f1ad0bf105540f743d8",
+    "_id": "57669f1ad0bf105540f743d9",
     "title": "Kinderstoel",
     "description": "",
     "type": "switch",
@@ -99,12 +99,12 @@
       {
         "title": "Geen",
         "value": "true",
-        "_id": "5766f68ef8a4037gh46f9d3c"
+        "_id": "576af0015484d79a491211e8"
       },
       {
         "title": "Romantisch",
         "value": "false",
-        "_id": "5766f68ef8ayy37b446f9d3b"
+        "_id": "576af1a0be81fdf749cff8a5"
       },
       {
         "title": "Zakelijk",
@@ -114,16 +114,16 @@
       {
         "title": "Feestelijk",
         "value": "false",
-        "_id": "5766f6xxf8a4037b446f9d3a"
+        "_id": "576af0015484d79a491211e7"
       },
       {
         "title": "Rouw",
         "value": "false",
-        "_id": "5766f68ef8rr037b446f9d3a"
+        "_id": "576af0015484d79a491211ee"
       }
     ],
     "category": [
-      "57669bd68fe61d3c40d2ae71"
+      "576ae9fdd0b2989c48746f4c"
     ]
   },
   {
@@ -154,7 +154,7 @@
     ]
   },
   {
-    "_id": "5766f68ef8a4037b446f9df9",
+    "_id": "5766f68ef8a4037b446f9df2",
     "title": "Zicht",
     "description": "",
     "type": "checkbox",
@@ -163,16 +163,16 @@
       {
         "title": "Normaal",
         "value": "false",
-        "_id": "576cf68eyha4037b446f9d3c"
+        "_id": "576ae9fdd0b2989c48746fb1"
       },
       {
         "title": "Zeezicht",
         "value": "false",
-        "_id": "5766fvjer8a4037b446f9d3b"
+        "_id": "576ae9fdd0b2989c48746fb2"
       }
     ],
     "category": [
-      "5766f5d0f8awr37b446f9d38"
+      "576af1a0be81fdf749cff8a9"
     ]
   },
   {
@@ -190,12 +190,12 @@
       {
         "title": "HBO",
         "value": "false",
-        "_id": "5766f68er8a4037b446f9d3b"
+        "_id": "576aeca716a8e300496febf7"
       },
       {
         "title": "Sport1",
         "value": "false",
-        "_id": "5766f6sef8a4037b446f9d3a"
+        "_id": "576af0015484d79a4912103c"
       }
     ],
     "category": [
@@ -217,12 +217,12 @@
       {
         "title": "Drank",
         "value": "false",
-        "_id": "5766f68erfa4037b446f9d3b"
+        "_id": "576af2ed9f61ce4b4a11fa0a"
       },
       {
         "title": "Sterke drank",
         "value": "false",
-        "_id": "5766f6sef8a4037b446f9f3a"
+        "_id": "576af1a0be81fdf749cff8aa"
       }
     ],
     "category": [

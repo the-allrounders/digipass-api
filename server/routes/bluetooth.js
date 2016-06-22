@@ -8,18 +8,25 @@ const router = require('express').Router(),
 router.route('/').post(passport.authenticate('bearer', {session: false}), (req, res) => {
     if(req.user.type != 'user') return res.status(401).send('Not authenticated as user');
 
-    Organisations
+    return Organisations
         .find({devices: {$elemMatch: {bluetooth: req.body.bluetooth}}})
         .then(organisations => {
+            organisations = organisations.map(organisation => organisation.toJSON());
 
-            // Remove the token from all the results, it's secret!
-            organisations.forEach(result => result.token = null);
+            organisations.forEach(organisation => {
+                // Remove the token from all the results, it's secret!
+                delete organisation.token;
+
+                // Only return the device that is actually used
+                organisation.device = organisation.devices.filter(device => device.bluetooth == req.body.bluetooth).pop();
+                delete organisation.devices;
+            });
 
             // Return the results
             res.json(organisations);
 
             // Find all preferences
-            organisations.forEach(organisation => organisation.devices[0].preferences.forEach(preference =>
+            organisations.forEach(organisation => organisation.device.preferences.forEach(preference =>
 
                 // Search for permission
                 Permission.findOne({preference: preference}).then(permission => {

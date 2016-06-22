@@ -30,7 +30,6 @@ router.route('/').post(passport.authenticate('bearer', {session: false}), (req, 
 
                 // Search for permission
                 Permission.findOne({preference: preference}).then(permission => {
-
                     if (!permission) {
                         // If the permission does not exist, create it
                         permission = new Permission({
@@ -40,8 +39,9 @@ router.route('/').post(passport.authenticate('bearer', {session: false}), (req, 
                             status: 'pending'
                         });
                     }
-
-                    permission.lastRequestedAt = Date.now;
+                    else{
+                        permission.lastRequestedAt = Date.now;
+                    }
 
                     permission.save();
 

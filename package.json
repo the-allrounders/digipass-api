@@ -8,7 +8,8 @@
     "watch": "nodemon index.js",
     "test": "dredd",
     "lint": "eslint . --fix",
-    "seed": "node seed.js"
+    "seed": "node seed.js",
+    "generate:objectids": "node utils/generateObjectIDs.js"
   },
   "repository": {
     "type": "git",

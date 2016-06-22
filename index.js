@@ -15,6 +15,7 @@ mongoose.connection.on('error', (error) => {
     console.error('Unable to connect with database: ',error);
     throw new Error(error);
 });
+
 mongoose.connection.once('open', () => {
     console.log('Connected with database');
     app.listen(config.port);

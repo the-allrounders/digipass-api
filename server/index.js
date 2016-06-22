@@ -20,6 +20,10 @@ app.use(passport.initialize());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+//statics for admin panel
+app.use(express.static('../public'));
+app.use('/dist', express.static('../node_modules/admin-lte/dist'));
+
 // enable CORS - Cross Origin Resource Sharing
 app.use(require('cors')());
 

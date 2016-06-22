@@ -18,11 +18,38 @@
     ]
   },
   {
-    "_id": "5766f553f8a4037b446f9d36",
+    "_id": "57669be0gge61d3c40d2ae72",
+    "title": "Gelegenheid",
+    "description": "",
+    "icon": "",
+    "parent": [
+      "57669bd68fe61d3c40d2ae71"
+    ]
+  },
+  {
+    "_id": "5766f553f8a4037b446f9fff",
     "title": "Hotel",
     "description": "",
     "icon": "",
     "parent": []
+  },
+  {
+    "_id": "5766f5a0f8a7037b446f9d37",
+    "title": "Betalingsvoorkeuren",
+    "description": "",
+    "icon": "",
+    "parent": [
+      "5766f553f8a4037b446f9d36"
+    ]
+  },
+  {
+    "_id": "5766f5a0f8a7037b446f9d38",
+    "title": "Kamervoorkeuren",
+    "description": "",
+    "icon": "",
+    "parent": [
+      "5766f553f8a4037b446f9d36"
+    ]
   },
   {
     "_id": "5766f5a0f8a4037b446f9d37",
@@ -30,7 +57,7 @@
     "description": "",
     "icon": "",
     "parent": [
-      "5766f553f8a4037b446f9d36"
+      "5766f5a0f8a7037b446f9d38"
     ]
   },
   {
@@ -39,7 +66,16 @@
     "description": "",
     "icon": "",
     "parent": [
-      "5766f5a0f8a4037b446f9d37"
+      "5766f5a0f8a7037b446f9d38"
+    ]
+  },
+  {
+    "_id": "5766f5d0f8awr37b446f9d38",
+    "title": "Zicht",
+    "description": "",
+    "icon": "",
+    "parent": [
+      "5766f5a0f8a7037b446f9d38"
     ]
   },
   {
@@ -48,7 +84,16 @@
     "description": "",
     "icon": "",
     "parent": [
-      "5766f553f8a4037b446f9d36"
+      "5766f5a0f8a7037b446f9d38"
+    ]
+  },
+  {
+    "_id": "5766f75ff8a4037b446f9dd3",
+    "title": "Minibar",
+    "description": "",
+    "icon": "",
+    "parent": [
+      "5766f5a0f8a7037b446f9d38"
     ]
   }
 ]

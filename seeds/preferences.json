@@ -15,7 +15,24 @@
         "title": "Gluten",
         "value": "false",
         "_id": "57669e2ed0bf105540f743d1"
+      },
+      {
+        "title": "Zuivel",
+        "value": "false",
+        "_id": "57669e2ed0bf105540f743c8"
+      },
+      {
+        "title": "Schaaldieren",
+        "value": "false",
+        "_id": "57669e2ed0bf105540f743c4"
+      },
+
+      {
+        "title": "Soja",
+        "value": "false",
+        "_id": "57669e2ed0bf105540f74dc4"
       }
+
     ],
     "category": [
       "57669bd68fe61d3c40d2ae71"
@@ -39,6 +56,23 @@
     ]
   },
   {
+    "_id": "57669e6ed0bf105540f743b8",
+    "title": "Veganistisch",
+    "description": "",
+    "type": "switch",
+    "icon": "",
+    "values": [
+      {
+        "title": "Veganistisch",
+        "value": "false",
+        "_id": "57669e6ed0bf105540f743d4"
+      }
+    ],
+    "category": [
+      "57669bd68fe61d3c40d2ae71"
+    ]
+  },
+  {
     "_id": "57669f1ad0bf105540f743d8",
     "title": "Kinderstoel",
     "description": "",
@@ -49,6 +83,43 @@
         "title": "Kinderstoel",
         "value": "false",
         "_id": "57669f1ad0bf105540f743d9"
+      }
+    ],
+    "category": [
+      "57669bd68fe61d3c40d2ae71"
+    ]
+  },
+  {
+    "_id": "57669f1ad0bf105540f743d8",
+    "title": "Gelegenheid",
+    "description": "",
+    "type": "switch",
+    "icon": "",
+    "values": [
+      {
+        "title": "Geen",
+        "value": "true",
+        "_id": "5766f68ef8a4037gh46f9d3c"
+      },
+      {
+        "title": "Romantisch",
+        "value": "false",
+        "_id": "5766f68ef8ayy37b446f9d3b"
+      },
+      {
+        "title": "Zakelijk",
+        "value": "false",
+        "_id": "5766f68ef8a4037b446f9d3a"
+      },
+      {
+        "title": "Feestelijk",
+        "value": "false",
+        "_id": "5766f6xxf8a4037b446f9d3a"
+      },
+      {
+        "title": "Rouw",
+        "value": "false",
+        "_id": "5766f68ef8rr037b446f9d3a"
       }
     ],
     "category": [
@@ -76,6 +147,82 @@
         "title": "Eenpersoons",
         "value": "true",
         "_id": "5766f68ef8a4037b446f9d3a"
+      }
+    ],
+    "category": [
+      "5766f5d0f8a4037b446f9d38"
+    ]
+  },
+  {
+    "_id": "5766f68ef8a4037b446f9df9",
+    "title": "Zicht",
+    "description": "",
+    "type": "checkbox",
+    "icon": "",
+    "values": [
+      {
+        "title": "Normaal",
+        "value": "false",
+        "_id": "576cf68eyha4037b446f9d3c"
+      },
+      {
+        "title": "Zeezicht",
+        "value": "false",
+        "_id": "5766fvjer8a4037b446f9d3b"
+      }
+    ],
+    "category": [
+      "5766f5d0f8awr37b446f9d38"
+    ]
+  },
+  {
+    "_id": "5766f68ef8a4037b446f9df9",
+    "title": "Extra tv-kanalen",
+    "description": "",
+    "type": "checkbox",
+    "icon": "",
+    "values": [
+      {
+        "title": "Film1",
+        "value": "false",
+        "_id": "576cf68ef8a4037b446f9d3c"
+      },
+      {
+        "title": "HBO",
+        "value": "false",
+        "_id": "5766f68er8a4037b446f9d3b"
+      },
+      {
+        "title": "Sport1",
+        "value": "false",
+        "_id": "5766f6sef8a4037b446f9d3a"
+      }
+    ],
+    "category": [
+      "5766f5d0f8a4037b446f9d38"
+    ]
+  },
+  {
+    "_id": "5766f98ef8a4037b446f9df9",
+    "title": "Minibar",
+    "description": "",
+    "type": "checkbox",
+    "icon": "",
+    "values": [
+      {
+        "title": "Frisdrank",
+        "value": "true",
+        "_id": "576cf68ef8a4037b4f6f9d3c"
+      },
+      {
+        "title": "Drank",
+        "value": "false",
+        "_id": "5766f68erfa4037b446f9d3b"
+      },
+      {
+        "title": "Sterke drank",
+        "value": "false",
+        "_id": "5766f6sef8a4037b446f9f3a"
       }
     ],
     "category": [

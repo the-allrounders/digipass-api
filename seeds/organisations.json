@@ -6,4 +6,23 @@
     "preferences": ["5766f68ef8a4037b446f9d39"]
   }],
   "token": "lol123"
-}]
+},
+  {
+    "title": "Restaurant Zeezicht",
+    "icon": "",
+    "devices": [{
+      "bluetooth": "00:00:00:00:00:00",
+      "preferences": ["5766f68ef8a4037b446f9d39"]
+    }],
+    "token": "lol123"
+  },
+  {
+    "title": "CitizenM",
+    "icon": "",
+    "devices": [{
+      "bluetooth": "00:00:00:00:00:00",
+      "preferences": ["5766f68ef8a4037b446f9d39"]
+    }],
+    "token": "lol123"
+  }
+]

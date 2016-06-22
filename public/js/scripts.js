@@ -4,12 +4,19 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+
+var _settings = require('./settings.js');
+
+var _settings2 = _interopRequireDefault(_settings);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 var organisation = {
     getOrganisations: function getOrganisations() {
         var _this = this;
 
         $.ajax({
-            url: url + '/organisations',
+            url: _settings2.default.url + '/organisations',
             method: 'get',
             success: function success(data) {
                 if (data) {
@@ -28,24 +35,31 @@ var organisation = {
         });
 
         var tableElement = '<tr class="organisation" data-id="' + organisation._id + '"><td><img src="' + organisation.icon + '" alt=""></td><td>' + organisation.title + '</td><td><ul>' + devices + '</ul></td><td><button type="button" class="btn btn-block btn-primary delete">Delete</button><button type="button" class="btn btn-block btn-primary edit">Edit</button></td></tr>';
-        $organisations.find('tbody').append(tableElement);
+        console.log($('#organisations').find('tbody').append(tableElement));
     }
 };
 
 exports.default = organisation;
 
-},{}],2:[function(require,module,exports){
+},{"./settings.js":3}],2:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+
+var _settings = require('./settings.js');
+
+var _settings2 = _interopRequireDefault(_settings);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 var preference = {
     getPreferences: function getPreferences() {
         var _this = this;
 
         $.ajax({
-            url: url + '/preferences',
+            url: _settings2.default.url + '/preferences',
             method: 'get',
             success: function success(data) {
                 _this.createInstance(data);
@@ -62,7 +76,19 @@ var preference = {
 
 exports.default = preference;
 
-},{}],3:[function(require,module,exports){
+},{"./settings.js":3}],3:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+var config = {
+    url: 'http://digipass-api.herokuapp.com/api'
+};
+
+exports.default = config;
+
+},{}],4:[function(require,module,exports){
 'use strict';
 
 var _organisation = require('./models/organisation.js');
@@ -75,14 +101,23 @@ var _preference2 = _interopRequireDefault(_preference);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var url = 'http://digipass-api.herokuapp.com/api';
 var $organisations = $('#organisations');
+var $newOrganisation = $('.new-item');
 
 if ($organisations) {
     _organisation2.default.getOrganisations();
     _preference2.default.getPreferences();
 
-    $organisations.find();
+    var show = false;
+    $('.addForm').on('click', function () {
+        if (show) {
+            $newOrganisation.hide();
+            show = false;
+        } else {
+            $newOrganisation.show();
+            show = true;
+        }
+    });
 }
 
-},{"./models/organisation.js":1,"./models/preference.js":2}]},{},[3]);
+},{"./models/organisation.js":1,"./models/preference.js":2}]},{},[4]);

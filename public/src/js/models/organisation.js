@@ -1,7 +1,9 @@
+import config from './settings.js';
+
 const organisation = {
     getOrganisations() {
         $.ajax({
-            url: url + '/organisations',
+            url: config.url + '/organisations',
             method: 'get',
             success: (data) => {
                 if(data) {
@@ -20,7 +22,7 @@ const organisation = {
         });
 
         const tableElement = '<tr class="organisation" data-id="'+organisation._id+'"><td><img src="'+organisation.icon+'" alt=""></td><td>'+organisation.title+'</td><td><ul>'+devices+'</ul></td><td><button type="button" class="btn btn-block btn-primary delete">Delete</button><button type="button" class="btn btn-block btn-primary edit">Edit</button></td></tr>';
-        $organisations.find('tbody').append(tableElement);
+        console.log($('#organisations').find('tbody').append(tableElement));
     }
 };
 

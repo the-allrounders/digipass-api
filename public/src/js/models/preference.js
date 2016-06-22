@@ -1,7 +1,9 @@
+import config from './settings.js';
+
 const preference = {
     getPreferences() {
         $.ajax({
-            url: url + '/preferences',
+            url: config.url + '/preferences',
             method: 'get',
             success: (data) => {
                 this.createInstance(data);

@@ -24,16 +24,12 @@ mongoose.connection.once('open', () => {
             object: require('./server/models/organisation')
         },
         {
-            data: require('./seeds/categories.json'),
+            data: require('./seeds/categories'),
             object: require('./server/models/category')
         },
         {
-            data: require('./seeds/preferences.json'),
+            data: require('./seeds/preferences'),
             object: require('./server/models/preference')
-        },
-        {
-            data: require('./seeds/users.json'),
-            object: require('./server/models/user')
         }
     ];
 

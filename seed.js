@@ -36,16 +36,17 @@ mongoose.connection.once('open', () => {
     setTimeout(() => {
         console.log('Database dropped.');
 
-
-
+        var objects = 0;
+        var objectsDone = 0;
         for(let collection of collections){
-            //console.log('collection: ',collection);
             collection.data.forEach(object => {
-                (new collection.object(object)).save().then(() => { console.log('Inserted', object); }).catch(console.log);
+                objects++;
+                (new collection.object(object)).save().then(() => {
+                    objectsDone++;
+                }).catch(error => {console.log(error); objectsDone++;}).then(() => {
+                    if(objectsDone == objects) mongoose.connection.close();
+                });
             });
         }
     }, 3000);
-
-
-    setTimeout(() => mongoose.connection.close(), 6000);
 });

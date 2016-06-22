@@ -12,12 +12,6 @@ mongoose.connection.on('error', (error) => {
 mongoose.connection.once('open', () => {
     console.log('Dropping database..');
 
-    for(let collection in mongoose.connection.collections){
-        if(typeof collection.drop == 'function') collection.drop();
-    }
-
-    console.log('Database dropped.');
-
     let collections = [
         {
             data: require('./seeds/organisations'),
@@ -33,17 +27,25 @@ mongoose.connection.once('open', () => {
         }
     ];
 
-    let collectionsDone = 0;
-    for(let collection of collections){
-        collection.data.forEach(object => (new collection.object(object)).save(() => {
-            collectionsDone++;
-            if(collectionsDone == collections.length){
-                console.log('Close connection');
-                mongoose.connection.close();
-            }
-        }));
+    for(let collection of collections) {
+        collection.object.remove({}, function (err) {
+            console.log('collection removed');
+        });
     }
 
+    setTimeout(() => {
+        console.log('Database dropped.');
 
 
+
+        for(let collection of collections){
+            //console.log('collection: ',collection);
+            collection.data.forEach(object => {
+                (new collection.object(object)).save().then(() => { console.log('Inserted', object); }).catch(console.log);
+            });
+        }
+    }, 3000);
+
+
+    setTimeout(() => mongoose.connection.close(), 6000);
 });

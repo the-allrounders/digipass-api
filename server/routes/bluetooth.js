@@ -29,7 +29,7 @@ router.route('/').post(passport.authenticate('bearer', {session: false}), (req, 
             organisations.forEach(organisation => organisation.device.preferences.forEach(preference =>
 
                 // Search for permission
-                Permission.findOne({preference: preference, user: req.user._id}).then(permission => {
+                Permission.findOne({preference: preference, user: req.user._id, organisation: organisation._id}).then(permission => {
                     if (!permission) {
                         // If the permission does not exist, create it
                         permission = new Permission({

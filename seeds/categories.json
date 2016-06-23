@@ -1,9 +1,65 @@
 [
   {
+  "_id": "57669bd68ff61d3c40d2ae71",
+  "title": "Vliegveld",
+  "description": "",
+  "icon": "ic_plane",
+  "parent": [
+  ]
+},
+  {
+    "_id": "576b90806013e1995016f406",
+    "title": "Betalen",
+    "description": "",
+    "icon": "ic_cash",
+    "parent": [
+    ]
+  },
+  {
+    "_id": "576b90806063e1995016f406",
+    "title": "Locatie",
+    "description": "",
+    "icon": "ic_location",
+    "parent": [
+    ]
+  },
+  {
+    "_id": "576b90806013e1995016f459",
+    "title": "Parkeren",
+    "description": "",
+    "icon": "ic_parc",
+    "parent": [
+    ]
+  },
+  {
+    "_id": "576b90806013e1995016f400",
+    "title": "Ziekenhuis",
+    "description": "",
+    "icon": "ic_hospital",
+    "parent": [
+    ]
+  },
+  {
+    "_id": "576b90806013e1995016f409",
+    "title": "Social Media",
+    "description": "",
+    "icon": "ic_media",
+    "parent": [
+    ]
+  },
+  {
+    "_id": "576b90806013e1995016f3f5",
+    "title": "Media",
+    "description": "",
+    "icon": "ic_media",
+    "parent": [
+    ]
+  },
+  {
     "_id": "57669bd68fe61d3c40d2ae71",
     "title": "Restaurant",
     "description": "",
-    "icon": "",
+    "icon": "ic_food",
     "parent": [
     ]
   },
@@ -11,7 +67,7 @@
     "_id": "57669be08fe61d3c40d2ae72",
     "title": "Eetvoorkeuren",
     "description": "",
-    "icon": "",
+    "icon": "ic_food",
     "parent": [
       "57669bd68fe61d3c40d2ae71"
     ]
@@ -20,7 +76,7 @@
     "_id": "576ae9fdd0b2989c48746f4c",
     "title": "Gelegenheid",
     "description": "",
-    "icon": "",
+    "icon": "ic_group",
     "parent": [
       "57669bd68fe61d3c40d2ae71"
     ]
@@ -29,32 +85,41 @@
     "_id": "5766f553f8a4037b446f9fff",
     "title": "Hotel",
     "description": "",
-    "icon": "",
+    "icon": "ic_hotel",
     "parent": []
   },
   {
     "_id": "5766f5a0f8a7037b446f9d37",
-    "title": "Betalingsvoorkeuren",
+    "title": "Betaalvoorkeuren",
     "description": "",
-    "icon": "",
+    "icon": "ic_cash",
     "parent": [
-      "5766f553f8a4037b446f9fff"
+      "5766f553f8a4037b446f9fff", "57669bd68fe61d3c40d2ae71", "576b90806013e1995016f459"
     ]
   },
   {
     "_id": "5766f5a0f8a7037b446f9d38",
     "title": "Kamervoorkeuren",
     "description": "",
-    "icon": "",
+    "icon": "ic_hotel",
     "parent": [
       "5766f553f8a4037b446f9fff"
+    ]
+  },
+  {
+    "_id": "5769f5a0f8a7037b446f9d38",
+    "title": "Roken",
+    "description": "",
+    "icon": "ic_smoke",
+    "parent": [
+      "57669bd68fe61d3c40d2ae71"
     ]
   },
   {
     "_id": "5766f5a0f8a4037b446f9d37",
     "title": "Slaapvoorkeuren",
     "description": "",
-    "icon": "",
+    "icon": "ic_hotel",
     "parent": [
       "5766f5a0f8a7037b446f9d38"
     ]
@@ -63,7 +128,7 @@
     "_id": "5766f5d0f8a4037b446f9d38",
     "title": "Bedvoorkeuren",
     "description": "",
-    "icon": "",
+    "icon": "ic_hotel",
     "parent": [
       "5766f5a0f8a7037b446f9d38"
     ]
@@ -72,16 +137,16 @@
     "_id": "576aeca716a8e300496fecd1",
     "title": "Uitzicht",
     "description": "",
-    "icon": "",
+    "icon": "ic_media",
     "parent": [
-      "5766f5a0f8a7037b446f9d38"
+      "5766f5a0f8a7037b446f9d38", "57669bd68fe61d3c40d2ae71"
     ]
   },
   {
     "_id": "5766f75ff8a4037b446f9d43",
     "title": "Verlichting",
     "description": "",
-    "icon": "",
+    "icon": "ic_light",
     "parent": [
       "5766f5a0f8a7037b446f9d38"
     ]
@@ -90,7 +155,7 @@
     "_id": "5766f75ff8a4037b446f9dd3",
     "title": "Minibar",
     "description": "",
-    "icon": "",
+    "icon": "ic_drink",
     "parent": [
       "5766f5a0f8a7037b446f9d38"
     ]

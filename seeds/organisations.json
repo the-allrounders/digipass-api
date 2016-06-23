@@ -1,6 +1,7 @@
 [{
+  "_id": "576b90806013e1995016f324",
   "title": "CitizenM",
-  "icon": "",
+  "icon": "http://project.cmi.hro.nl/2015_2016/emedia_mt2b_t4/digipass/images/organisations/citizenm.jpg",
   "devices": [{
     "bluetooth": "abc123",
     "preferences": ["5766f68ef8a4037b446f9d39", "5766f68ef8a4037b446f9df9", "5766f68ef8a4037b446f9df2", "5766f98ef8a4037b446f9df9", "5766f6d3f8a4037b446f9d3d", "5766f723f8a4037b446f9d3f", "5766f7a7f8a4037b446f9d44", "5766f7d9f8a4037b446f9d49"]
@@ -8,17 +9,19 @@
   "token": "lol123"
 },
   {
+    "_id": "576b90806013e1995016f345",
     "title": "Restaurant Zeezicht",
-    "icon": "",
+    "icon": "http://project.cmi.hro.nl/2015_2016/emedia_mt2b_t4/digipass/images/organisations/zeezicht.jpg",
     "devices": [{
-      "bluetooth": "def123",
+      "bluetooth": "DA:5C:8E:66:F6:13",
       "preferences": ["57669e2ed0bf105540f743d0", "57669e6ed0bf105540f743d3", "57669e6ed0bf105540f743b8", "57669f1ad0bf105540f743d8", "57669f1ad0bf105540f743d9" ]
     }],
     "token": "lol456"
   },
   {
+    "_id": "576b90806013e1995016f342",
     "title": "Albert Heijn",
-    "icon": "",
+    "icon": "http://project.cmi.hro.nl/2015_2016/emedia_mt2b_t4/digipass/images/organisations/ah.jpg",
     "devices": [{
       "bluetooth": "ghi123",
       "preferences": ["57669e2ed0bf105540f743d0", "57669e6ed0bf105540f743d3", "57669e6ed0bf105540f743b8"]

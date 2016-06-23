@@ -45,6 +45,10 @@ var _modal = require('./modal.js');
 
 var _modal2 = _interopRequireDefault(_modal);
 
+var _preference = require('./preference.js');
+
+var _preference2 = _interopRequireDefault(_preference);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var organisation = {
@@ -68,21 +72,26 @@ var organisation = {
     },
     createInstance: function createInstance(organisation) {
         var $org = $('#organisations');
+        var preferences = [];
         var devices = organisation.devices.map(function (device) {
-            return '<li class="device" data-id="' + device._id + '">' + device._id + '</li>';
+            device.preferences.forEach(function (v) {
+                preferences.push('<li class="preference" data-id="' + v + '" data-deviceId="' + device._id + '">' + v + '</li>');
+            });
+            return '<li class="device" data-id="' + device._id + '" data-title="' + device.title + '" data-bluetooth="' + device.bluetooth + '">' + device._id + '</li>';
         });
 
-        var tableElement = '<tr class="organisation"><td><img src="' + organisation.icon + '" alt=""></td><td>' + organisation.title + '</td><td><ul>' + devices + '</ul></td><td><button type="button" class="btn btn-block btn-primary delete" data-id="' + organisation._id + '">Delete</button><button type="button" class="btn btn-block btn-primary edit" data-id="' + organisation._id + '">Edit</button></td></tr>';
+        var tableElement = '<tr class="organisation"><td class="icon" data-url="' + organisation.icon + '"><img src="' + organisation.icon + '" alt=""></td><td class="title" data-id="' + organisation._id + '" data-title="' + organisation.title + '">' + organisation.title + '</td><td class="devices"><ul>' + devices.join('') + '</ul></td><td><ul>' + preferences.join('') + '</ul></td><td><button type="button" class="btn btn-block btn-primary delete" data-id="' + organisation._id + '">Delete</button><button type="button" class="btn btn-block btn-primary edit" data-id="' + organisation._id + '">Edit</button></td></tr>';
         $org.find('tbody').append(tableElement);
     },
     newOrganisation: function newOrganisation() {
         var _this2 = this;
 
-        var title = $('#inputTitle').val(),
-            iconUrl = $('#inputUrl').val(),
-            preferences = $('select[name=selector]').val(),
-            bluetooth = $('#inputCrownstoneId').val(),
-            crownstoneName = $('#inputCrownstoneName').val();
+        var $newOrganisation = $('.new-item');
+        var title = $newOrganisation.find('#inputTitle').val(),
+            iconUrl = $newOrganisation.find('#inputUrl').val(),
+            preferences = $newOrganisation.find('select[name=selector]').val(),
+            bluetooth = $newOrganisation.find('#inputCrownstoneId').val(),
+            crownstoneName = $newOrganisation.find('#inputCrownstoneName').val();
 
         $.ajax({
             url: _settings2.default.url + '/organisations',
@@ -118,18 +127,81 @@ var organisation = {
             });
         });
     },
-    setUpdate: function setUpdate() {
-        var title = $('#inputTitle'),
-            iconUrl = $('#inputUrl'),
-            preferences = $('select[name=selector]'),
-            bluetooth = $('#inputCrownstoneId'),
-            crownstoneName = $('#inputCrownstoneName');
+    setUpdate: function setUpdate(e) {
+        $('.new-item').hide();
+        var $editOrganisation = $('.edit-item');
+        $editOrganisation.find('.deviceManager').remove();
+        var $title = $editOrganisation.find('#inputTitle'),
+            $iconUrl = $editOrganisation.find('#inputUrl'),
+            $id = $editOrganisation.find('#inputId');
+        var $parent = $(e.target).parent().parent();
+
+        var title = $parent.find('.title').data('title'),
+            iconUrl = $parent.find('.icon').data('url'),
+            id = $parent.find('.title').data('id');
+        var devices = [];
+        $parent.find('.devices .device').each(function (k, v) {
+            var obj = {
+                id: $(v).data('id'),
+                title: $(v).data('title'),
+                bluetooth: $(v).data('bluetooth'),
+                preferences: []
+            };
+            $parent.find('.preference').each(function (prefk, prefv) {
+                if ($(prefv).data('deviceid') == obj.id) {
+                    obj.preferences.push($(prefv).data('id'));
+                }
+            });
+            devices.push(obj);
+        });
+
+        $title.val(title);
+        $iconUrl.val(iconUrl);
+        $id.val(id);
+        console.log(devices);
+        devices.forEach(function (v) {
+            $editOrganisation.find('.box-body').append('<div class="box-group deviceManager"><div class="box"><div class="box-header"><h3 class="box-title">' + v.title + '</h3></div><div class="box-body"><div class="row"><div class="col-md-6"><div class="form-group"><label for="deviceTitle">Device Title</label><input type="text" class="form-control" id="deviceTitle" placeholder="Enter device title" value="' + v.title + '" data-id="' + v.id + '"></div><div class="form-group"><label for="inputCrownstoneId">Bluetooth id</label><input type="text" class="form-control" id="inputCrownstoneId" placeholder="Enter bluetooth id" value="' + v.bluetooth + '"></div></div><div class="col-md-6"></div></div></div></div></div>');
+        });
+
+        $editOrganisation.find('#box-title').html('Edit organisation');
+        $editOrganisation.show();
+    },
+    updateOrganisation: function updateOrganisation() {
+        var _this4 = this;
+
+        var $editOrganisation = $('.edit-item');
+        var title = $editOrganisation.find('#inputTitle').val(),
+            iconUrl = $editOrganisation.find('#inputUrl').val(),
+            id = $editOrganisation.find('#inputId').val();
+        var devices = $editOrganisation.find('.deviceManager');
+        var devicess = [];
+        devices.each(function (k, device) {
+            devicess.push({
+                id: $(device).find('#deviceTitle').data('id'),
+                title: $(device).find('#deviceTitle').val(),
+                bluetooth: $(device).find('#deviceTitle').val()
+            });
+        });
+
+        console.log(id, title, iconUrl, devicess);
+        $.ajax({
+            url: _settings2.default.url + '/organisations/' + id,
+            method: 'put',
+            data: {
+                title: title,
+                icon: iconUrl,
+                devices: devicess
+            },
+            success: function success() {
+                _this4.getOrganisations();
+            }
+        });
     }
 };
 
 exports.default = organisation;
 
-},{"./modal.js":1,"./settings.js":4}],3:[function(require,module,exports){
+},{"./modal.js":1,"./preference.js":3,"./settings.js":4}],3:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -143,22 +215,22 @@ var _settings2 = _interopRequireDefault(_settings);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var preference = {
-    getPreferences: function getPreferences() {
+    getPreferences: function getPreferences(element) {
         var _this = this;
 
         $.ajax({
             url: _settings2.default.url + '/preferences',
             method: 'get',
             success: function success(data) {
-                _this.createInstance(data);
+                _this.createInstance(data, element);
             }
         });
     },
-    createInstance: function createInstance(preference) {
-        var element = preference.map(function (pref) {
+    createInstance: function createInstance(preference, element) {
+        var pref = preference.map(function (pref) {
             return '<option value="' + pref._id + '">' + pref.title + '</option>';
         });
-        $('#selectPreferences').append(element);
+        element.append(pref);
     }
 };
 
@@ -171,7 +243,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 var config = {
-    url: 'http://digipass-api.herokuapp.com/api'
+    url: 'http://localhost:3000/api'
 };
 
 exports.default = config;
@@ -191,17 +263,21 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var $organisations = $('#organisations');
 var $newOrganisation = $('.new-item');
+var $editOrganisation = $('.edit-item');
 
 if ($organisations) {
     _organisation2.default.getOrganisations();
-    _preference2.default.getPreferences();
+    _preference2.default.getPreferences($('#selectPreferences'));
 
     var show = false;
     $('.addForm').on('click', function () {
         if (show) {
+            $editOrganisation.hide();
             $newOrganisation.hide();
             show = false;
         } else {
+            $editOrganisation.hide();
+            $newOrganisation.find('#box-title').html('New organisation');
             $newOrganisation.show();
             show = true;
         }
@@ -210,6 +286,7 @@ if ($organisations) {
     $('.addOrganisation').on('click', _organisation2.default.newOrganisation.bind(_organisation2.default));
     $('#organisations').on('click', '.delete', _organisation2.default.removeOrganisation.bind(_organisation2.default));
     $('#organisations').on('click', '.edit', _organisation2.default.setUpdate);
+    $('.editOrganisation').on('click', _organisation2.default.updateOrganisation.bind(_organisation2.default));
 }
 
 },{"./models/organisation.js":2,"./models/preference.js":3}]},{},[5]);

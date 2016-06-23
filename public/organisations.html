@@ -63,7 +63,7 @@
                     <button type="button" class="btn btn-block btn-primary addForm">Add Organisation</button>
                     <div class="box new-item">
                         <div class="box-header">
-                            <h3 class="box-title">New Organisation</h3>
+                            <h3 id="box-title">New Organisation</h3>
                         </div>
                         <div class="box-body">
                             <div class="row">
@@ -83,7 +83,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="inputCrownstoneId">Icon Url</label>
+                                        <label for="inputCrownstoneId">Bluetooth id</label>
                                         <input type="text" class="form-control" id="inputCrownstoneId" placeholder="Enter bluetooth id">
                                     </div>
                                     <div class="form-group">
@@ -91,12 +91,36 @@
                                         <select class="form-control select2" multiple="multiple" name="selector" data-placeholder="Select a Preference" style="width: 100%;" id="selectPreferences">
                                         </select>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-block btn-primary addOrganisation">Add</button>
+                    </div>
+                    <div class="box edit-item">
+                        <div class="box-header">
+                            <h3 id="box-title">Edit Organisation</h3>
+                        </div>
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-md-6">
                                     <div class="form-group">
-                                        <button type="button" class="btn btn-block btn-primary addOrganisation">Add</button>
+                                        <label for="inputId">Title</label>
+                                        <input type="text" class="form-control" id="inputId" disabled>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputTitle">Title</label>
+                                        <input type="email" class="form-control" id="inputTitle" placeholder="Enter title">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="inputUrl">Icon Url</label>
+                                        <input type="text" class="form-control" id="inputUrl" placeholder="Enter icon URL">
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <button type="button" class="btn btn-block btn-primary editOrganisation">Edit</button>
                     </div>
                     <div class="box">
                         <div class="box-header">
@@ -110,6 +134,7 @@
                                     <th>Icon</th>
                                     <th>Title</th>
                                     <th>Devices</th>
+                                    <th>Preferences</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -121,6 +146,7 @@
                                     <th>Icon</th>
                                     <th>Title</th>
                                     <th>Devices</th>
+                                    <th>Preferences</th>
                                     <th>Action</th>
                                 </tr>
                                 </tfoot>

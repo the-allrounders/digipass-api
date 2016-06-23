@@ -46,6 +46,7 @@ function update(req, res, next) {
     const organisation = req.organisation;
     organisation.title = req.body.title;
     organisation.icon = req.body.icon;
+    organisation.devices = req.body.devices;
 
     organisation.saveAsync()
         .then((savedOrganisation) => res.json(savedOrganisation))

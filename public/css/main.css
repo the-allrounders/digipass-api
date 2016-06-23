@@ -22,5 +22,5 @@
 #organisations .edit {
   background-color: #3cbc75; }
 
-.new-item {
+.new-item, .edit-item {
   display: none; }

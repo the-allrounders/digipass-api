@@ -1,5 +1,61 @@
 [
   {
+  "_id": "57669bd68ff61d3c40d2ae71",
+  "title": "Vliegveld",
+  "description": "",
+  "icon": "",
+  "parent": [
+  ]
+},
+  {
+    "_id": "576b90806013e1995016f406",
+    "title": "Betalen",
+    "description": "",
+    "icon": "",
+    "parent": [
+    ]
+  },
+  {
+    "_id": "576b90806063e1995016f406",
+    "title": "Locatie",
+    "description": "",
+    "icon": "",
+    "parent": [
+    ]
+  },
+  {
+    "_id": "576b90806013e1995016f459",
+    "title": "Parkeren",
+    "description": "",
+    "icon": "",
+    "parent": [
+    ]
+  },
+  {
+    "_id": "576b90806013e1995016f400",
+    "title": "Ziekenhuis",
+    "description": "",
+    "icon": "",
+    "parent": [
+    ]
+  },
+  {
+    "_id": "576b90806013e1995016f409",
+    "title": "Social Media",
+    "description": "",
+    "icon": "",
+    "parent": [
+    ]
+  },
+  {
+    "_id": "576b90806013e1995016f3f5",
+    "title": "Media",
+    "description": "",
+    "icon": "",
+    "parent": [
+    ]
+  },
+  {
     "_id": "57669bd68fe61d3c40d2ae71",
     "title": "Restaurant",
     "description": "",
@@ -34,11 +90,11 @@
   },
   {
     "_id": "5766f5a0f8a7037b446f9d37",
-    "title": "Betalingsvoorkeuren",
+    "title": "Betaalvoorkeuren",
     "description": "",
     "icon": "",
     "parent": [
-      "5766f553f8a4037b446f9fff"
+      "5766f553f8a4037b446f9fff", "5576b90806013e1995016f406"
     ]
   },
   {

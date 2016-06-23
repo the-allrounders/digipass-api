@@ -73,6 +73,23 @@
     ]
   },
   {
+    "_id": "57669e8ed0ef105540f743b8",
+    "title": "Toestemming locatie",
+    "description": "",
+    "type": "switch",
+    "icon": "",
+    "values": [
+      {
+        "title": "Locatiebepaling",
+        "value": "false",
+        "_id": "57669e6ed0ba105540f743d4"
+      }
+    ],
+    "category": [
+      "57669e8ed0ef105540f743b8"
+    ]
+  },
+  {
     "_id": "57669f1ad0bf105540f743d9",
     "title": "Kinderstoel",
     "description": "",
@@ -87,6 +104,74 @@
     ],
     "category": [
       "57669bd68fe61d3c40d2ae71"
+    ]
+  },
+  {
+    "_id": "57669f1ad0bf105560f743d9",
+    "title": "Facebook",
+    "description": "",
+    "type": "switch",
+    "icon": "",
+    "values": [
+      {
+        "title": "Facebook",
+        "value": "false",
+        "_id": "57669f1ad0bf125540f743d9"
+      }
+    ],
+    "category": [
+      "576b90806013e1995016f409"
+    ]
+  },
+  {
+    "_id": "57669e1ad0bf105540f743d9",
+    "title": "Instagram",
+    "description": "",
+    "type": "switch",
+    "icon": "",
+    "values": [
+      {
+        "title": "Instagram",
+        "value": "false",
+        "_id": "57669f1ad0bf135540f743d9"
+      }
+    ],
+    "category": [
+      "576b90806013e1995016f409"
+    ]
+  },
+  {
+    "_id": "57669e5ad0bf105540f743d9",
+    "title": "Twitter",
+    "description": "",
+    "type": "switch",
+    "icon": "",
+    "values": [
+      {
+        "title": "Twitter",
+        "value": "false",
+        "_id": "57629f1ad0bf135540f743d9"
+      }
+    ],
+    "category": [
+      "576b90806013e1995016f409"
+    ]
+  },
+  {
+    "_id": "57669f1ad0bf105540f743d5",
+    "title": "Inchecken",
+    "description": "",
+    "type": "switch",
+    "icon": "",
+    "values": [
+      {
+        "title": "Check in",
+        "value": "false",
+        "_id": "576b90806013e1995016f3ea"
+      }
+    ],
+    "category": [
+      "57669bd68ff61d3c40d2ae71"
     ]
   },
   {
@@ -173,6 +258,33 @@
     ],
     "category": [
       "576af1a0be81fdf749cff8a9"
+    ]
+  },
+  {
+    "_id": "5762f68ef8a4037b446f9df9",
+    "title": "Betaalmiddel",
+    "description": "",
+    "type": "checkbox",
+    "icon": "",
+    "values": [
+      {
+        "title": "iDeal",
+        "value": "true",
+        "_id": "576ca68ef8a4037b446f9d3c"
+      },
+      {
+        "title": "Creditcard",
+        "value": "false",
+        "_id": "576aeca716b8e300496febf7"
+      },
+      {
+        "title": "Afterpay",
+        "value": "false",
+        "_id": "576af0025484d79a4912103c"
+      }
+    ],
+    "category": [
+      "576b90806013e1995016f406"
     ]
   },
   {
@@ -270,7 +382,7 @@
       }
     ],
     "category": [
-      "5766f5d0f8a4037b446f9d38"
+      "5766f5d0f8a4037b446f9d38", "576b90806013e1995016f400"
     ]
   },
   {

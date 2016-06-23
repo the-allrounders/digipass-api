@@ -94,7 +94,7 @@
     "description": "",
     "icon": "ic_cash",
     "parent": [
-      "5766f553f8a4037b446f9fff", "5576b90806013e1995016f406"
+      "5766f553f8a4037b446f9fff", "57669bd68fe61d3c40d2ae71", "576b90806013e1995016f459"
     ]
   },
   {
@@ -104,6 +104,15 @@
     "icon": "ic_hotel",
     "parent": [
       "5766f553f8a4037b446f9fff"
+    ]
+  },
+  {
+    "_id": "5769f5a0f8a7037b446f9d38",
+    "title": "Roken",
+    "description": "",
+    "icon": "ic_smoke",
+    "parent": [
+      "57669bd68fe61d3c40d2ae71"
     ]
   },
   {
@@ -130,7 +139,7 @@
     "description": "",
     "icon": "ic_media",
     "parent": [
-      "5766f5a0f8a7037b446f9d38"
+      "5766f5a0f8a7037b446f9d38", "57669bd68fe61d3c40d2ae71"
     ]
   },
   {

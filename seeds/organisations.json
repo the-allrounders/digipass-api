@@ -11,7 +11,7 @@
     "title": "Restaurant Zeezicht",
     "icon": "",
     "devices": [{
-      "bluetooth": "def123",
+      "bluetooth": "DA:5C:8E:66:F6:13",
       "preferences": ["57669e2ed0bf105540f743d0", "57669e6ed0bf105540f743d3", "57669e6ed0bf105540f743b8", "57669f1ad0bf105540f743d8", "57669f1ad0bf105540f743d9" ]
     }],
     "token": "lol456"

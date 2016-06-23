@@ -7,12 +7,31 @@ const userPreferenceCtrl = require('../controllers/userPreference'),
     mongoose = require('mongoose'),
     Category = require('../models/category'),
     promiseWhile = require('../../utils/promiseWhile'),
-    Promise = require('bluebird');
+    Promise = require('bluebird'),
+    Preference = require('../models/preference'),
+    UserPreference = require('../models/userPreference');
 
 const router = require('express').Router({mergeParams: true});
 
 router.route('/preferences')
-    .get(userPreferenceCtrl.list) /** GET /api/preferences - Get list of preferences */
+    .get((req, res) => {
+        return Promise.resolve(Preference.find({}, '_id title description category values'))
+            .bind({})
+            .then(preferences => {
+                this.preferences = preferences.map(preference => preference.toJSON());
+                return UserPreference.find({user: req.params.userId});
+            })
+            .then(userPreferences => {
+                let preferences = this.preferences;
+                userPreferences.forEach(userPreference =>
+                    preferences.forEach(preference => {
+                        if(userPreference.preference && preference._id.toString() == userPreference.preference.toString())
+                            preference.values = userPreference.values;
+                    })
+                );
+                res.json(preferences);
+            });
+    })
     .post(userPreferenceCtrl.create); /** POST /api/preferences - Create new preference */
 
 router.route('/preferences/:preferenceId')

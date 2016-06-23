@@ -80,7 +80,7 @@ var organisation = {
             return '<li class="device" data-id="' + device._id + '" data-title="' + device.title + '" data-bluetooth="' + device.bluetooth + '">' + device._id + '</li>';
         });
 
-        var tableElement = '<tr class="organisation"><td class="icon" data-url="' + organisation.icon + '"><img src="' + organisation.icon + '" alt=""></td><td class="title" data-id="' + organisation._id + '" data-title="' + organisation.title + '">' + organisation.title + '</td><td class="devices"><ul>' + devices.join('') + '</ul></td><td><ul>' + preferences.join('') + '</ul></td><td><button type="button" class="btn btn-block btn-primary delete" data-id="' + organisation._id + '">Delete</button><button type="button" class="btn btn-block btn-primary edit" data-id="' + organisation._id + '">Edit</button></td></tr>';
+        var tableElement = '<tr class="organisation"><td class="icon" data-url="' + organisation.icon + '"><img src="' + organisation.icon + '" alt=""></td><td class="title" data-id="' + organisation._id + '" data-title="' + organisation.title + '">' + organisation.title + '</td><td class="devices"><ul>' + devices.join('') + '</ul></td><td><ul>' + preferences.join('') + '</ul></td><td><button type="button" class="btn btn-block btn-primary delete" data-id="' + organisation._id + '" disabled>Delete</button><button type="button" class="btn btn-block btn-primary edit" data-id="' + organisation._id + '" disabled>Edit</button></td></tr>';
         $org.find('tbody').append(tableElement);
     },
     newOrganisation: function newOrganisation() {

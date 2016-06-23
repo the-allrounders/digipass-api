@@ -7,11 +7,20 @@ const router = require('express').Router(),
 const User = require('../models/user');
 
 function returnUserInfo (req, res){
+    var bearer = req.user.tokens.slice(-1)[0],
+        user = req.user.toJSON();
+
+    delete user.tokens;
+    delete user.updatedAt;
+    delete user.password;
+    delete user.__v;
+
+    // Backwards compatibility
+    user.id = user._id;
+
     res.json({
-        Bearer: req.user.tokens.slice(-1)[0],
-        User: {
-            id: req.user.id
-        }
+        Bearer: bearer,
+        User: user
     });
 }
 

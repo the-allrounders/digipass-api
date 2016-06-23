@@ -243,7 +243,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 var config = {
-    url: 'http://localhost:3000/api'
+    url: 'http://digipass-api.herokuapp.com/api'
 };
 
 exports.default = config;

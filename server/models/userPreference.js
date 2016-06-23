@@ -11,11 +11,13 @@ const ItemSchema = new mongoose.Schema(
     {
         preference: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'Preference'
+            ref: 'Preference',
+            required: true
         },
         user: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'User'
+            ref: 'User',
+            required: true
         },
         values: [{
             title: {

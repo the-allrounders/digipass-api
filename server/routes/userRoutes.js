@@ -23,12 +23,17 @@ router.route('/preferences')
             })
             .then(userPreferences => {
                 let preferences = this.preferences;
-                userPreferences.forEach(userPreference =>
-                    preferences.forEach(preference => {
-                        if(userPreference.preference && preference._id.toString() == userPreference.preference.toString())
-                            preference.values = userPreference.values;
-                    })
-                );
+                userPreferences.forEach(userPreference => preferences.forEach(preference => {
+                    if(userPreference.preference && preference._id.toString() == userPreference.preference.toString()){
+
+                        // User preference found for a preference.. merge values!
+                        userPreference.values.forEach(value => preference.values.forEach(defValue => {
+                            if(defValue.title == value.title){
+                                defValue.value = value.value;
+                            }
+                        }));
+                    }
+                }));
                 res.json(preferences);
             });
     })

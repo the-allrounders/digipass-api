@@ -1,5 +1,5 @@
 [{
-  "id": "576b90806013e1995016f324",
+  "_id": "576b90806013e1995016f324",
   "title": "CitizenM",
   "icon": "http://project.cmi.hro.nl/projecten/2015_2016_emedia_mt2b_t4/digipass/images/organisations/citizenm.jpg",
   "devices": [{
@@ -9,7 +9,7 @@
   "token": "lol123"
 },
   {
-    "id": "576b90806013e1995016f345",
+    "_id": "576b90806013e1995016f345",
     "title": "Restaurant Zeezicht",
     "icon": "http://project.cmi.hro.nl/projecten/2015_2016_emedia_mt2b_t4/digipass/images/organisations/zeezicht.jpg",
     "devices": [{
@@ -19,7 +19,7 @@
     "token": "lol456"
   },
   {
-    "id": "576b90806013e1995016f342",
+    "_id": "576b90806013e1995016f342",
     "title": "Albert Heijn",
     "icon": "http://project.cmi.hro.nl/projecten/2015_2016_emedia_mt2b_t4/digipass/images/organisations/ah.jpg",
     "devices": [{

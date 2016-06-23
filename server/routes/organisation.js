@@ -19,7 +19,7 @@ router.route('/:organisationId')
 router.get('/:organisationId/users', passport.authenticate('bearer', {session: false}), (req, res) => {
     if(req.user.type != 'organisation') return res.status(401).send('Not authenticated as organisation');
     Permission
-        .find({organisation: req.params.organisationId/*, status: 'approved'*/}, '_id user lastRequestedAt')
+        .find({organisation: req.params.organisationId, status: 'approved'}, '_id user lastRequestedAt')
         .sort('lastRequestedAt')
         .populate('user', '_id name')
         .then(permissions => {

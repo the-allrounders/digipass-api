@@ -9,12 +9,16 @@ const userPreferenceCtrl = require('../controllers/userPreference'),
     promiseWhile = require('../../utils/promiseWhile'),
     Promise = require('bluebird'),
     Preference = require('../models/preference'),
-    UserPreference = require('../models/userPreference');
+    UserPreference = require('../models/userPreference'),
+    passport = require('passport');
 
 const router = require('express').Router({mergeParams: true});
 
 router.route('/preferences')
-    .get((req, res) => {
+    .get(passport.authenticate('bearer', {session: false}), (req, res) => {
+        if(req.user.type == 'user' && req.user.id != req.params.userId)
+            res.code(401).text('Not the correct userID.');
+
         return Promise.resolve(Preference.find({}, '_id title description category values'))
             .bind({})
             .then(preferences => {
@@ -22,7 +26,20 @@ router.route('/preferences')
                 return UserPreference.find({user: req.params.userId});
             })
             .then(userPreferences => {
+                this.userPreferences = userPreferences;
+                
+                if(req.user.type != 'organisation') return;
+                
+                var self = this;
+                return Permission.find({organisation: req.user.id, user: req.params.userId, status: 'approved'}).then(permissions => {
+                    self.preferences = self.preferences.filter(preference => {
+                        return permissions.filter(permission => permission.preference.toString() == preference._id.toString()).length;
+                    });
+                });
+            })
+            .then(() => {
                 let preferences = this.preferences;
+                let userPreferences = this.userPreferences;
                 userPreferences.forEach(userPreference => preferences.forEach(preference => {
                     if(userPreference.preference && preference._id.toString() == userPreference.preference.toString()){
 

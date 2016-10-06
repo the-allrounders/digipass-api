@@ -39,7 +39,7 @@
   "devDependencies": {
     "dredd": "^1.0.11",
     "eslint": "^2.12.0",
-    "nodemon": "^1.9.2"
+    "nodemon": "^1.11.0"
   },
   "engines": {
     "node": ">=6.x"
